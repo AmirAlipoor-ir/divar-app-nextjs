@@ -15,6 +15,10 @@ export const LoginForm = () => {
     setPhoneNumber("");
   };
 
+  const handleChangePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-y-3 text-xl pt-5">
@@ -25,9 +29,7 @@ export const LoginForm = () => {
           id="phonenumber"
           value={phoneNumber}
           placeholder="enter phonenumber"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPhoneNumber(e.target.value)
-          }
+          onChange={handleChangePhoneNumber}
         />
       </div>
       <button
