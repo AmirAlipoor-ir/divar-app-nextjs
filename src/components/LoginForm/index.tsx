@@ -4,7 +4,9 @@ import { ChangeEvent, FormEvent, useState } from "react";
 
 import { useSendOtpMutation } from "@/services/login";
 
-export const LoginForm = () => {
+import { AddStep } from "./types";
+
+export const LoginForm = ({ setStep }: AddStep) => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const [createUser] = useSendOtpMutation();
@@ -17,6 +19,10 @@ export const LoginForm = () => {
 
   const handleChangePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(e.target.value);
+  };
+
+  const AddOneStep = () => {
+    setStep(2);
   };
 
   return (
@@ -33,6 +39,7 @@ export const LoginForm = () => {
         />
       </div>
       <button
+        onClick={() => AddOneStep()}
         type="submit"
         className="w-80 border-2 mt-3 rounded-md text-white bg-red-600 py-2 text-xl "
       >
