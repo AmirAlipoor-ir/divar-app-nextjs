@@ -41,16 +41,15 @@ export const LoginForm = ({ setStep }: AddStep) => {
         />
       </div>
       <div>
+        <button
+          type="submit"
+          className="w-80 border-2 mt-3 rounded-md text-white bg-red-600 py-2 text-xl"
+        >
+          {isLoading ? "Loading ...." : "Add code"}
+        </button>
         {isLoading ? (
-          <span>sendig code to {phoneNumber} phoneNumber</span>
-        ) : (
-          <button
-            type="submit"
-            className="w-80 border-2 mt-3 rounded-md text-white bg-red-600 py-2 text-xl"
-          >
-            Add code
-          </button>
-        )}
+          <span className="block">sendig code to {phoneNumber} phoneNumber ...</span>
+        ) : null}
       </div>
     </form>
   );

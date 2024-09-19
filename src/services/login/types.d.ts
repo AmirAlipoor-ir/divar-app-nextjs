@@ -3,5 +3,11 @@ export type SendOtp = {
 };
 
 export type CheckOtpRes = {
-  message: string
+  message: string;
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type SendRefreshToken = {
+  refreshToken: string;
 };
