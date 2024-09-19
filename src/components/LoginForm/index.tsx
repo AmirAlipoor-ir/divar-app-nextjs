@@ -1,28 +1,30 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useState } from "react";
 
 import { useSendOtpMutation } from "@/services/login";
 
-import { AddStep } from "./types";
+import { AddFormEvent, AddInputEvent, AddStep } from "./types";
 
 export const LoginForm = ({ setStep }: AddStep) => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const [createUser] = useSendOtpMutation();
+  const [createUser, { isLoading }] = useSendOtpMutation();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    createUser(phoneNumber);
-    setPhoneNumber("");
+  const handleSubmit = async (e: AddFormEvent) => {
+    try {
+      e.preventDefault();
+      await createUser(phoneNumber).unwrap();
+      sessionStorage.setItem("phoneNumber", phoneNumber);
+      setPhoneNumber("");
+      setStep(2);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleChangePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangePhoneNumber = (e: AddInputEvent) => {
     setPhoneNumber(e.target.value);
-  };
-
-  const AddOneStep = () => {
-    setStep(2);
   };
 
   return (
@@ -38,13 +40,18 @@ export const LoginForm = ({ setStep }: AddStep) => {
           onChange={handleChangePhoneNumber}
         />
       </div>
-      <button
-        onClick={() => AddOneStep()}
-        type="submit"
-        className="w-80 border-2 mt-3 rounded-md text-white bg-red-600 py-2 text-xl "
-      >
-        Add code
-      </button>
+      <div>
+        {isLoading ? (
+          <span>sendig code to {phoneNumber} phoneNumber</span>
+        ) : (
+          <button
+            type="submit"
+            className="w-80 border-2 mt-3 rounded-md text-white bg-red-600 py-2 text-xl"
+          >
+            Add code
+          </button>
+        )}
+      </div>
     </form>
   );
 };

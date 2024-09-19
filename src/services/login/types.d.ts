@@ -1,3 +1,7 @@
 export type SendOtp = {
-    number: string;
-  };
+  number: string;
+};
+
+export type CheckOtpRes = {
+  message: string
+};
