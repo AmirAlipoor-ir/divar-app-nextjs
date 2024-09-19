@@ -12,7 +12,10 @@ const extendedApi = todoSplitApi.injectEndpoints({
         },
       }),
     }),
-    checkOtp: builder.mutation<CheckOtpRes,{ phoneNumber: string; otpCode: string }>({
+    checkOtp: builder.mutation<
+      CheckOtpRes,
+      { phoneNumber: string; otpCode: string }
+    >({
       query: ({ phoneNumber, otpCode }) => ({
         url: "/auth/check-otp",
         method: "POST",
@@ -27,12 +30,16 @@ const extendedApi = todoSplitApi.injectEndpoints({
         url: "/auth/check-refresh-token",
         method: "POST",
         body: {
-          refreshToken : refreshToken
-        }
+          refreshToken,
+        },
       }),
     }),
   }),
 
   overrideExisting: false,
 });
-export const { useSendOtpMutation, useCheckOtpMutation,useChekRefreshTokenMutation } = extendedApi;
+export const {
+  useSendOtpMutation,
+  useCheckOtpMutation,
+  useChekRefreshTokenMutation,
+} = extendedApi;

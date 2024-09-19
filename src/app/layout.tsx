@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import type { Metadata } from "next";
 
 import Link from "next/link";
@@ -5,10 +7,9 @@ import Link from "next/link";
 import Provider from "@/components/Providers";
 
 import "./globals.css";
-import { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "Divar",
 };
 
 export default function RootLayout({
@@ -16,6 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
+
   return (
     <Provider>
       <html lang="en">

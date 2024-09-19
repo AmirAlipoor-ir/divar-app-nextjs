@@ -2,18 +2,20 @@
 
 import { useState } from "react";
 
-import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
-import { useCheckOtpMutation, useChekRefreshTokenMutation } from "@/services/login";
+import { useCheckOtpMutation } from "@/services/login";
 
-import { AddFormEvent, AddInputEvent } from "./types";
+import { AddFormEvent, AddInputEvent,CheckOtpRes } from "./types";
+
+import { setCookies } from "@/utils/cookies";
 
 const CheckOtp = () => {
   const [otpCode, setOtpCode] = useState("");
 
   const [sendOtp, { isLoading, isSuccess }] = useCheckOtpMutation();
 
-  const [refreshToken] = useChekRefreshTokenMutation()
+  const router = useRouter();
 
   const handleOtpCode = (e: AddInputEvent) => {
     setOtpCode(e.target.value);
@@ -22,23 +24,16 @@ const CheckOtp = () => {
   const handleSubmitOtp = async (e: AddFormEvent) => {
     try {
       e.preventDefault();
-      const data = await sendOtp({
+      const data: CheckOtpRes = await sendOtp({
         phoneNumber: sessionStorage.getItem("phoneNumber")!,
         otpCode,
       }).unwrap();
-      Cookies.set("accessTokenCookie", data.accessToken);
-      Cookies.set("refreshTokenCookie", data.refreshToken);
-      refreshToken(Cookies.get("refreshTokenCookie"))
+      setCookies({data})
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
     }
   };
-
-
-
-  if (Cookies.get("accessTokenCookie")) {
-    return <div>your login is done</div>;
-  }
 
   return (
     <div>
