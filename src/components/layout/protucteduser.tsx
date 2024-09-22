@@ -7,18 +7,21 @@ import Cookies from "js-cookie";
 import { useChekRefreshTokenMutation } from "@/services/login";
 
 export const ProtuctedUser = ({ children }: { children: ReactNode }) => {
+  const refreshTokenCookie = Cookies.get("refreshTokenCookie");
+  const accessTokenCookie = Cookies.get("accessTokenCookie");
 
-  const refreshToken = Cookies.get("refreshTokenCookie");
-  const accessToken = Cookies.get("accessTokenCookie");
-
-  const [getnewtoken, { data }] = useChekRefreshTokenMutation();
+  const [getNewToken, { data }] = useChekRefreshTokenMutation();
 
   useEffect(() => {
-    if (!accessToken && refreshToken) {
-      getnewtoken(refreshToken);
-      Cookies.set("accessTokenCookie", data?.accessToken);
-    }
-  });
+    const fetchData = async () => {
+      if (!accessTokenCookie && refreshTokenCookie) {
+        const { data } = await getNewToken(refreshTokenCookie);
+        Cookies.set("accessTokenCookie", data?.accessToken);
+      }
+      console.log(data?.accessToken);
+    };
+    fetchData();
+  }, [accessTokenCookie, data?.accessToken, getNewToken, refreshTokenCookie]);
 
   return <>{children}</>;
 };
