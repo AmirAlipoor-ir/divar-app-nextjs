@@ -4,13 +4,13 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { useCheckOtpMutation } from "@/services/login";
-
-import { AddFormEvent, AddInputEvent,CheckOtpRes } from "./types";
-
 import { setCookies } from "@/utils/cookies";
 
-const CheckOtp = () => {
+import { useCheckOtpMutation } from "@/services/login";
+
+import { AddFormEvent, AddInputEvent, CheckOtpRes } from "./types";
+
+export const CheckOtp = () => {
   const [otpCode, setOtpCode] = useState("");
 
   const [sendOtp, { isLoading, isSuccess }] = useCheckOtpMutation();
@@ -28,7 +28,7 @@ const CheckOtp = () => {
         phoneNumber: sessionStorage.getItem("phoneNumber")!,
         otpCode,
       }).unwrap();
-      setCookies({data})
+      setCookies({ data });
       router.push("/dashboard");
     } catch (error) {
       console.log(error);
@@ -64,5 +64,3 @@ const CheckOtp = () => {
     </div>
   );
 };
-
-export default CheckOtp;

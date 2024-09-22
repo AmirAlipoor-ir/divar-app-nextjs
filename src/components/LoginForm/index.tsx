@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
+import Cookies from "js-cookie";
+
 import { useSendOtpMutation } from "@/services/login";
 
 import { AddFormEvent, AddInputEvent, AddStep } from "./types";
 
 import { useRouter } from "next/navigation";
-
-import Cookies from "js-cookie";
 
 export const LoginForm = ({ setStep }: AddStep) => {
   const [phoneNumber, setPhoneNumber] = useState("");

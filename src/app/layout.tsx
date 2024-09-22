@@ -3,10 +3,10 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import Provider from "@/components/Providers";
-
-import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { ProtuctedUser } from "@/components/layout/protucteduser";
+
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Divar",

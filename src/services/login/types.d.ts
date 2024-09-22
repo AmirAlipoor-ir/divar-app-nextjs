@@ -8,7 +8,7 @@ export type CheckOtpRes = {
   refreshToken: string;
 };
 
-export type SendRefreshToken = {
+export type CheckRefreshTokenRes = {
   message: string;
   accessToken: string;
   refreshToken: string;

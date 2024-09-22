@@ -1,15 +1,9 @@
-"use client";
+import React from "react";
 
-import Cookies from "js-cookie";
-const DashboardPage = () => {
-  const token = Cookies.get("accessTokenCookie");
-
+export default function dashboardPage() {
   return (
     <div>
-      {token?"user": "login"}
-      <h1>dashbord</h1>
+      <h1>Dashboard</h1>
     </div>
   );
-};
-
-export default DashboardPage;
+}
