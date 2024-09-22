@@ -10,4 +10,6 @@ export type CheckOtpRes = {
 
 export type SendRefreshToken = {
   refreshToken: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  accessToken: any;
 };

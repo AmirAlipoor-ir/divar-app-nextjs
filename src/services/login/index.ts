@@ -3,11 +3,11 @@ import { CheckOtpRes, SendOtp, SendRefreshToken } from "./types";
 
 const extendedApi = todoSplitApi.injectEndpoints({
   endpoints: (builder) => ({
-    whoami: builder.query({
+    whoami: builder.query<unknown, void>({
       query: () => ({
         url: "/user/whoami",
         method: "GET",
-      }), 
+      }),
     }),
     sendOtp: builder.mutation<SendOtp, string>({
       query: (number) => ({
@@ -45,6 +45,7 @@ const extendedApi = todoSplitApi.injectEndpoints({
   overrideExisting: false,
 });
 export const {
+  useWhoamiQuery,
   useSendOtpMutation,
   useCheckOtpMutation,
   useChekRefreshTokenMutation,

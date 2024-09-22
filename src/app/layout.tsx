@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 
 import type { Metadata } from "next";
 
-import Link from "next/link";
-
 import Provider from "@/components/Providers";
 
 import "./globals.css";
+import Navbar from "@/components/Navbar/Navbar";
+import { ProtuctedUser } from "@/components/layout/protucteduser";
 
 export const metadata: Metadata = {
   title: "Divar",
@@ -17,18 +17,17 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-
   return (
     <Provider>
-      <html lang="en">
-        <body>
-          <nav className="flex justify-center gap-x-3 text-2xl">
-            <Link href="/login">Login</Link>
-          </nav>
-          <hr className="w-full bg-slate-200" />
-          {children}
-        </body>
-      </html>
+      <ProtuctedUser>
+        <html lang="en">
+          <body>
+            <Navbar />
+            <hr className="w-full bg-slate-200" />
+            {children}
+          </body>
+        </html>
+      </ProtuctedUser>
     </Provider>
   );
 }

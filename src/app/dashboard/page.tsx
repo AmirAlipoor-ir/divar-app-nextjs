@@ -1,11 +1,15 @@
+"use client";
+
+import Cookies from "js-cookie";
 const DashboardPage = () => {
-    return ( 
-        <div>
-            <h1>
-                dashbord
-            </h1>
-        </div>
-     );
-}
- 
+  const token = Cookies.get("accessTokenCookie");
+
+  return (
+    <div>
+      {token?"user": "login"}
+      <h1>dashbord</h1>
+    </div>
+  );
+};
+
 export default DashboardPage;
