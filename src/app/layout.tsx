@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import type { Metadata } from "next";
 
-import { Provider } from "@/components/Providers";
+import { Provider } from "@/components/Provider";
 import { Navbar } from "@/components/Navbar";
 import { Protected } from "@/components/layout/Protected";
 
