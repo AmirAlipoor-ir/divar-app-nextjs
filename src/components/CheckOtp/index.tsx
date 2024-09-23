@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import toast from "react-hot-toast";
+
 import { setCookies } from "@/utils/cookies";
 
 import { useCheckOtpMutation } from "@/services/login";
@@ -60,7 +62,7 @@ export const CheckOtp = () => {
           </button>
         </div>
       </form>
-      {isSuccess ? <span>you login successfully</span> : null}
+      {isSuccess && toast.success("you login successfully")}
     </div>
   );
 };

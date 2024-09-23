@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import Cookies from "js-cookie";
+
+import toast from "react-hot-toast";
 
 import { useSendOtpMutation } from "@/services/login";
 
 import { AddFormEvent, AddInputEvent, AddStep } from "./types";
-
-import { useRouter } from "next/navigation";
 
 export const LoginForm = ({ setStep }: AddStep) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -60,9 +62,10 @@ export const LoginForm = ({ setStep }: AddStep) => {
         </button>
         {isLoading && (
           <span className="block">
-            sendig code to {phoneNumber} phoneNumber ...
+            The code has been sent to {phoneNumber} phoneNumber ...
           </span>
         )}
+        {isLoading && toast.success("The code has been sent to your number")}
       </div>
     </form>
   );
