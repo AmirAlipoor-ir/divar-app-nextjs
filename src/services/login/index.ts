@@ -1,10 +1,10 @@
-import { todoSplitApi } from "../basic";
+import { baseApi } from "../basic";
 
 import { CheckOtpRes, SendOtp, CheckRefreshTokenRes } from "./types";
 
-const extendedApi = todoSplitApi.injectEndpoints({
+const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    whoami: builder.query<unknown, void>({
+    whoami: builder.query<Response, void>({
       query: () => ({
         url: "/user/whoami",
         method: "GET",
@@ -12,11 +12,11 @@ const extendedApi = todoSplitApi.injectEndpoints({
     }),
 
     sendOtp: builder.mutation<SendOtp, string>({
-      query: (number) => ({
+      query: (mobile) => ({
         url: "/auth/send-otp",
         method: "POST",
         body: {
-          mobile: number,
+          mobile
         },
       }),
     }),
@@ -53,4 +53,4 @@ export const {
   useSendOtpMutation,
   useCheckOtpMutation,
   useChekRefreshTokenMutation,
-} = extendedApi;
+} = loginApi;
