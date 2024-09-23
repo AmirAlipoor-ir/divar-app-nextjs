@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 import Link from "next/link";
 
-const Navbar = () => {
+export const Navbar = () => {
   const accessToken = Cookies.get("accessTokenCookie");
 
   return (
@@ -18,4 +18,3 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;

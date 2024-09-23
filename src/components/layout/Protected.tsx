@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 import { useChekRefreshTokenMutation } from "@/services/login";
 
-export const ProtuctedUser = ({ children }: { children: ReactNode }) => {
+export const Protected = ({ children }: { children: ReactNode }) => {
   const refreshTokenCookie = Cookies.get("refreshTokenCookie");
 
   const accessTokenCookie = Cookies.get("accessTokenCookie");
