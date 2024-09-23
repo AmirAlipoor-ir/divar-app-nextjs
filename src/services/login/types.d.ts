@@ -1,15 +1,9 @@
-export type SendOtp = {
+export interface SendOtp {
   number: string;
-};
+}
 
-export type CheckOtpRes = {
+export interface CheckOtpRes {
   message: string;
   accessToken: string;
   refreshToken: string;
-};
-
-export type CheckRefreshTokenRes = {
-  message: string;
-  accessToken: string;
-  refreshToken: string;
-};
+}

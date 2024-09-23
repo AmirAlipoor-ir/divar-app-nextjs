@@ -11,7 +11,7 @@ export const Protected = ({ children }: { children: ReactNode }) => {
 
   const accessTokenCookie = Cookies.get("accessTokenCookie");
 
-  const [getNewToken, { data }] = useChekRefreshTokenMutation();
+  const [getNewToken] = useChekRefreshTokenMutation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +23,7 @@ export const Protected = ({ children }: { children: ReactNode }) => {
       }
     };
     fetchData();
-  }, [accessTokenCookie, data?.accessToken, getNewToken, refreshTokenCookie]);
+  }, [accessTokenCookie, getNewToken, refreshTokenCookie]);
 
   return <>{children}</>;
 };

@@ -2,9 +2,8 @@ export type AddFormEvent = FormEvent<HTMLFormElement>;
 
 export type AddInputEvent = ChangeEvent<HTMLInputElement>;
 
-export type CheckOtpRes = {
-    message: string;
-    accessToken: string;
-    refreshToken: string;
-  };
-  
+export interface CheckOtpRes {
+  message: string;
+  accessToken: string;
+  refreshToken: string;
+}
