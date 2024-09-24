@@ -21,7 +21,4 @@ export const setCookies = ({ data }: { data: CheckOtpRes }) => {
   Cookies.set("refreshTokenCookie", data.refreshToken, {
     expires: refreshTokenExpireDate,
   });
-
-  console.log("Access Token Expiration:", accessTokenExpireDate);
-  console.log("Refresh Token Expiration:", refreshTokenExpireDate);
 };
