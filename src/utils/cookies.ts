@@ -1,15 +1,27 @@
-"use client";
-
 import Cookies from "js-cookie";
+
+import { jwtDecode } from "jwt-decode";
 
 import { CheckOtpRes } from "./type";
 
 export const setCookies = ({ data }: { data: CheckOtpRes }) => {
+  const getExpireDate = (token: string) => {
+    const expInSeconds = jwtDecode(token).exp;
+    const expInMilliseconds = expInSeconds * 1000;
+    return new Date(expInMilliseconds);
+  };
+
+  const accessTokenExpireDate = getExpireDate(data.accessToken);
+  const refreshTokenExpireDate = getExpireDate(data.refreshToken);
+
   Cookies.set("accessTokenCookie", data.accessToken, {
-    expires: 1 * 24 * 60 * 60,
+    expires: accessTokenExpireDate,
   });
 
   Cookies.set("refreshTokenCookie", data.refreshToken, {
-    expires: 30 * 24 * 60 * 60,
+    expires: refreshTokenExpireDate,
   });
+
+  console.log("Access Token Expiration:", accessTokenExpireDate);
+  console.log("Refresh Token Expiration:", refreshTokenExpireDate);
 };

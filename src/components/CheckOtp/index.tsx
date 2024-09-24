@@ -33,7 +33,7 @@ export const CheckOtp = () => {
       setCookies({ data });
       router.push("/dashboard");
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 

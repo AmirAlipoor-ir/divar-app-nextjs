@@ -27,7 +27,7 @@ export const LoginForm = ({ setStep }: AddStep) => {
       setPhoneNumber("");
       setStep(2);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -62,10 +62,9 @@ export const LoginForm = ({ setStep }: AddStep) => {
         </button>
         {isLoading && (
           <span className="block">
-            The code has been sent to {phoneNumber} phoneNumber ...
+            The code has been sent to {phoneNumber} phoneNumber ..
           </span>
         )}
-        {isLoading && toast.success("The code has been sent to your number")}
       </div>
     </form>
   );
