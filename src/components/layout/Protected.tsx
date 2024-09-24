@@ -17,25 +17,43 @@ export const Protected = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const now = Math.floor(Date.now() / 1000);
+
+      const getExpireDate = (token: string) => {
+        const { exp } = jwtDecode(token);
+
+        return exp;
+      };
+
       if (!accessTokenCookie && refreshTokenCookie) {
         const { data } = await getNewToken(refreshTokenCookie);
-
-        const getExpireDate = (token: string) => {
-          const expInSeconds = jwtDecode(token).exp;
-          const expInMilliseconds = expInSeconds * 1000;
-          return new Date(expInMilliseconds);
-        };
 
         const accessTokenExpireDate = getExpireDate(data.accessToken);
 
         Cookies.set("accessTokenCookie", data.accessToken, {
-          expires: accessTokenExpireDate,
+          expires: new Date(accessTokenExpireDate * 1000),
         });
+      } else if (accessTokenCookie) {
+        const accessTokenExpireDate = getExpireDate(accessTokenCookie);
+
+        if (accessTokenExpireDate - now <= 5) {
+          if (refreshTokenCookie) {
+            const { data } = await getNewToken(refreshTokenCookie);
+
+            if (data.accessToken) {
+              const newAccessTokenExpireDate = getExpireDate(data.accessToken);
+
+              Cookies.set("accessTokenCookie", data.accessToken, {
+                expires: new Date(newAccessTokenExpireDate * 1000),
+              });
+            }
+          }
+        }
       }
     };
+
     fetchData();
   }, [accessTokenCookie, getNewToken, refreshTokenCookie]);
 
   return <>{children}</>;
 };
-
