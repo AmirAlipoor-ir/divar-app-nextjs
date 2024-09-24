@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import Cookies from "js-cookie";
+
 import Link from "next/link";
 
 export const Navbar = () => {
@@ -20,7 +22,8 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex justify-center gap-x-3 text-2xl">
+    <div className="flex justify-between gap-x-3 text-2xl">
+    <Link href="/dashboard">Dashboard</Link>
       {accessToken ? (
         <Link href="profile">Profile </Link>
       ) : (
