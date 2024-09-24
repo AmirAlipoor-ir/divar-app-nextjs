@@ -9,3 +9,4 @@ import { store } from "@/redux-toolkit/store";
 export const Provider = ({ children }: { children: ReactNode }) => {
   return <ReduxProvider store={store}>{children}</ReduxProvider>;
 };
+console.log("hi")
