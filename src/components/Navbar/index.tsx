@@ -22,7 +22,7 @@ export const Navbar = () => {
   return (
     <div className="flex justify-center gap-x-3 text-2xl">
       {accessToken ? (
-        <Link href="profile">Profile</Link>
+        <Link href="profile">Profile </Link>
       ) : (
         <Link href="/login">Login</Link>
       )}
