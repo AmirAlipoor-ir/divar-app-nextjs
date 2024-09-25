@@ -10,7 +10,6 @@ import { getExpireAccessDate } from "@/utils/cookies";
 
 export const Protected = ({ children }: { children: ReactNode }) => {
   const refreshTokenCookie = Cookies.get("refreshTokenCookie");
-
   const accessTokenCookie = Cookies.get("accessTokenCookie");
 
   const [getNewToken] = useChekRefreshTokenMutation();
@@ -52,6 +51,12 @@ export const Protected = ({ children }: { children: ReactNode }) => {
     };
 
     fetchData();
+
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, [accessTokenCookie, getNewToken, refreshTokenCookie]);
 
   return <>{children}</>;
