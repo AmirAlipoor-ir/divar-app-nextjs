@@ -21,9 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <Provider>
         <Protected>
-          <body>
+          <body className="mx-auto max-w-screen-xl mt-2">
             <Navbar />
-            <hr className="w-full bg-slate-200" />
             {children}
           </body>
         </Protected>
