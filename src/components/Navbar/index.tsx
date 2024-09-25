@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+
 import Link from "next/link";
+
+import Cookies from "js-cookie";
+
+import { Toaster } from "react-hot-toast";
 
 export const Navbar = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
@@ -21,6 +25,7 @@ export const Navbar = () => {
 
   return (
     <div className="flex justify-center gap-x-3 text-2xl">
+      <Toaster />
       {accessToken ? (
         <Link href="profile">Profile </Link>
       ) : (

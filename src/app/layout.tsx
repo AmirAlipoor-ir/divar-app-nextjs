@@ -2,8 +2,6 @@ import { ReactNode } from "react";
 
 import type { Metadata } from "next";
 
-import { Toaster } from "react-hot-toast";
-
 import { Provider } from "@/components/Provider";
 import { Navbar } from "@/components/Navbar";
 import { Protected } from "@/components/layout/Protected";
@@ -24,7 +22,6 @@ export default function RootLayout({
       <Provider>
         <Protected>
           <body>
-            <Toaster />
             <Navbar />
             <hr className="w-full bg-slate-200" />
             {children}

@@ -32,6 +32,7 @@ export const CheckOtp = () => {
       }).unwrap();
       setCookies({ data });
       router.push("/dashboard");
+      toast.success("you login successfully");
     } catch (error) {
       toast.error(error.message);
     }
@@ -62,7 +63,6 @@ export const CheckOtp = () => {
           </button>
         </div>
       </form>
-      {isSuccess && toast.success("you login successfully")}
     </div>
   );
 };
