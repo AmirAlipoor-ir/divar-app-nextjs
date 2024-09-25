@@ -24,10 +24,11 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex justify-center gap-x-3 text-2xl">
+    <div className="flex justify-between gap-x-3 text-2xl">
       <Toaster />
+      <Link href="/dashboard">dashboard</Link>
       {accessToken ? (
-        <Link href="profile">Profile </Link>
+        <Link href="/profile">Profile </Link>
       ) : (
         <Link href="/login">Login</Link>
       )}

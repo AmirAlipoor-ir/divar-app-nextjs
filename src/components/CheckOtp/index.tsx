@@ -10,7 +10,7 @@ import { setCookies } from "@/utils/cookies";
 
 import { useCheckOtpMutation } from "@/services/login";
 
-import { AddFormEvent, AddInputEvent, CheckOtpRes } from "./types";
+import { AddFormEvent, AddInputEvent, CheckOtpCode } from "./types";
 
 export const CheckOtp = () => {
   const [otpCode, setOtpCode] = useState("");
@@ -26,13 +26,13 @@ export const CheckOtp = () => {
   const handleSubmitOtp = async (e: AddFormEvent) => {
     try {
       e.preventDefault();
-      const data: CheckOtpRes = await sendOtp({
+      const data: CheckOtpCode = await sendOtp({
         phoneNumber: sessionStorage.getItem("phoneNumber")!,
         otpCode,
       }).unwrap();
       setCookies({ data });
-      router.push("/dashboard");
       toast.success("you login successfully");
+      router.push("/profile");
     } catch (error) {
       toast.error(error.message);
     }

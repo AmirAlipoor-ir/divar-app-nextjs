@@ -7,3 +7,8 @@ export interface CheckOtpRes {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface CheckOtpCode {
+  phoneNumber: string;
+  otpCode: string;
+}

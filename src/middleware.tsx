@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessTokenCookie");
 
-  const isRootProfile = req.nextUrl.pathname === "/profile";
+  const isRootProfile = req.nextUrl.pathname === "/dashboard";
 
   if (isRootProfile && !accessToken) {
 
@@ -14,5 +14,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile"],
+  matcher: ["/dashboard"],
 };
