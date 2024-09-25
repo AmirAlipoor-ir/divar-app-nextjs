@@ -2,11 +2,14 @@ import Cookies from "js-cookie";
 
 import { jwtDecode } from "jwt-decode";
 
-import { CheckOtpRes } from "./type";
+import { CheckOtpRes, DecodedToken } from "./type";
+
+
+
 
 export const setCookies = ({ data }: { data: CheckOtpRes }) => {
   const getExpireDate = (token: string) => {
-    const expInSeconds = jwtDecode(token).exp;
+    const expInSeconds = jwtDecode<DecodedToken>(token).exp;
     const expInMilliseconds = expInSeconds * 1000;
     return new Date(expInMilliseconds);
   };

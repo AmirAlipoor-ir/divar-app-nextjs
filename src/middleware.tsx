@@ -6,7 +6,6 @@ export function middleware(req: NextRequest) {
   const isRootProfile = req.nextUrl.pathname === "/dashboard";
 
   if (isRootProfile && !accessToken) {
-
     return NextResponse.redirect(new URL("/login", req.url));
   }
 

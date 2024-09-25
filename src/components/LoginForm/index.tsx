@@ -26,7 +26,7 @@ export const LoginForm = ({ setStep }: AddStep) => {
       sessionStorage.setItem("phoneNumber", phoneNumber);
       setPhoneNumber("");
       setStep(2);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
