@@ -4,9 +4,6 @@ import { jwtDecode } from "jwt-decode";
 
 import { CheckOtpRes, DecodedToken } from "./type";
 
-
-
-
 export const setCookies = ({ data }: { data: CheckOtpRes }) => {
   const getExpireDate = (token: string) => {
     const expInSeconds = jwtDecode<DecodedToken>(token).exp;
