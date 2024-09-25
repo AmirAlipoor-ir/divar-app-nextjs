@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 import { useChekRefreshTokenMutation } from "@/services/login";
+import { CheckOtpRes } from "../CheckOtp/types";
 
 export const Protected = ({ children }: { children: ReactNode }) => {
   const refreshTokenCookie = Cookies.get("refreshTokenCookie");
@@ -26,24 +27,26 @@ export const Protected = ({ children }: { children: ReactNode }) => {
       };
 
       if (!accessTokenCookie && refreshTokenCookie) {
-        const { data } = await getNewToken(refreshTokenCookie);
+        const data = await getNewToken(refreshTokenCookie).unwrap();
 
-        const accessTokenExpireDate = getExpireDate(data.accessToken);
+        const accessTokenExpireDate: any = getExpireDate(data.accessToken);
 
         Cookies.set("accessTokenCookie", data.accessToken, {
           expires: new Date(accessTokenExpireDate * 1000),
         });
       } else if (accessTokenCookie) {
-        const accessTokenExpireDate = getExpireDate(accessTokenCookie);
+        const accessTokenExpireDate: any = getExpireDate(accessTokenCookie);
 
         if (accessTokenExpireDate - now <= 5) {
           if (refreshTokenCookie) {
-            const { data } = await getNewToken(refreshTokenCookie);
+            const data = await getNewToken(refreshTokenCookie);
 
-            if (data.accessToken) {
-              const newAccessTokenExpireDate = getExpireDate(data.accessToken);
+            if (data.data?.accessToken) {
+              const newAccessTokenExpireDate: any = getExpireDate(
+                data.data.accessToken
+              );
 
-              Cookies.set("accessTokenCookie", data.accessToken, {
+              Cookies.set("accessTokenCookie", data.data.accessToken, {
                 expires: new Date(newAccessTokenExpireDate * 1000),
               });
             }
