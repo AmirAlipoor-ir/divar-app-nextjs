@@ -4,6 +4,8 @@ import {
   useDeleteCategoryMutation,
   useGetCategoryQuery,
 } from "@/services/category";
+import Image from "next/image";
+import trash from "../../../public/delete.svg";
 
 export const CategoryList = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,13 +28,19 @@ export const CategoryList = () => {
         ) => (
           <div
             key={index}
-            className="border border-1 p-3  rounded-md flex justify-between"
+            className="border border-1 p-3  rounded-md flex justify-between mb-3"
           >
-            <div>
-              <span>{icon}</span>
-              <span>{name}</span>
+            <div className="flex items-center gap-x-2">
+              <img src={`/${icon}.svg`} alt="icon" /> <span>{name}</span>
             </div>
-            <button onClick={() => handleDeleteCategory(_id)}>trash</button>
+            <button onClick={() => handleDeleteCategory(_id)}>
+              <Image
+                src={trash}
+                alt="trash"
+                width={30}
+                className="fill-red-500"
+              />
+            </button>
           </div>
         )
       )}

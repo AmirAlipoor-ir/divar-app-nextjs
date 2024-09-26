@@ -8,6 +8,9 @@ import Cookies from "js-cookie";
 
 import { useWhoamiQuery } from "@/services/login";
 
+
+import Image from "next/image";
+
 export const Navbar = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
     Cookies.get("accessTokenCookie")
@@ -40,7 +43,9 @@ export const Navbar = () => {
         ) : (
           <Link href="/login">Login</Link>
         )} */}
-        <Link href="/">DIVAR</Link>
+        <Link href="/">
+          <Image src="/divar.svg" alt="divar" width={50} height={50}    />
+        </Link>
       </div>
       <hr className="w-full bg-slate-400 mt-3" />
     </>
