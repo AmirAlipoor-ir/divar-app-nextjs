@@ -10,12 +10,12 @@ import { setCookies } from "@/utils/cookies";
 
 import { useCheckOtpMutation } from "@/services/login";
 
-import { AddFormEvent, AddInputEvent, CheckOtpRes } from "./types";
+import { AddFormEvent, AddInputEvent } from "./types";
 
 export const CheckOtp = () => {
   const [otpCode, setOtpCode] = useState("");
 
-  const [sendOtp, { isLoading, isSuccess }] = useCheckOtpMutation();
+  const [sendOtp, { isLoading }] = useCheckOtpMutation();
 
   const router = useRouter();
 

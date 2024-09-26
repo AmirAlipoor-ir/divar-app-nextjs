@@ -35,11 +35,11 @@ export const Navbar = () => {
           add poster
         </Link>
         {data?.role == "USER" && <Link href="admin">Admin</Link>}
-        {accessToken ? (
+        {/* {accessToken ? (
           <Link href="/profile">Profile</Link>
         ) : (
           <Link href="/login">Login</Link>
-        )}
+        )} */}
         <Link href="/">DIVAR</Link>
       </div>
       <hr className="w-full bg-slate-400 mt-3" />

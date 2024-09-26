@@ -22,8 +22,16 @@ const loginApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["category"],
     }),
+    deleteCategory: builder.mutation<string, string>({
+      query: (id) => ({
+        url: `/category/${id}`,
+        method: "DELETE",
+        body: id,
+      }),
+      invalidatesTags: ["category"],
+    }),
   }),
 
   overrideExisting: false,
 });
-export const { useGetCategoryQuery, useAddCategoryMutation } = loginApi;
+export const { useGetCategoryQuery, useAddCategoryMutation,useDeleteCategoryMutation } = loginApi;

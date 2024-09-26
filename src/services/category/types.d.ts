@@ -1,4 +1,4 @@
-export interface AddCategory {
+export interface  AddCategory {
   categoryName: string;
   categoryIcon: string;
 }
