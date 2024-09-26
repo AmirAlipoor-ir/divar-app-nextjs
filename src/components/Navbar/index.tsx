@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import Cookies from "js-cookie";
 
-// import { useWhoamiQuery } from "@/services/login";
+import { useWhoamiQuery } from "@/services/login";
 
 export const Navbar = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
@@ -23,7 +23,7 @@ export const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // const {data} = useWhoamiQuery()
+  const { data } = useWhoamiQuery();
 
   return (
     <>
@@ -34,7 +34,7 @@ export const Navbar = () => {
         >
           add poster
         </Link>
-        {/* {data?.role== "USER"&&<Link href="admin">Admin</Link> } */}
+        {data?.role == "USER" && <Link href="admin">Admin</Link>}
         {accessToken ? (
           <Link href="/profile">Profile</Link>
         ) : (
