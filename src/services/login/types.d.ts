@@ -12,3 +12,9 @@ export interface CheckOtpCode {
   phoneNumber: string;
   otpCode: string;
 }
+export interface WhoAmIRes {
+  id: string;
+  mobile: string;
+  role: string;
+  createdAt: string;
+}
