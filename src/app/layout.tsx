@@ -19,14 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Provider>
-        <Protected>
-          <body className="mx-auto max-w-screen-xl mt-2">
+      <body className="mx-auto max-w-screen-xl mt-2">
+        <Provider>
+          <Protected>
             <Navbar />
             {children}
-          </body>
-        </Protected>
-      </Provider>
+          </Protected>
+        </Provider>
+      </body>
     </html>
   );
 }
