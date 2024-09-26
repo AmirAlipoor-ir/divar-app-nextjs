@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import Cookies from "js-cookie";
 
-import { Toaster } from "react-hot-toast";
+// import { useWhoamiQuery } from "@/services/login";
 
 export const Navbar = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
@@ -23,15 +23,26 @@ export const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // const {data} = useWhoamiQuery()
+
   return (
-    <div className="flex justify-between gap-x-3 text-2xl">
-      <Toaster />
-      <Link href="/dashboard">dashboard</Link>
-      {accessToken ? (
-        <Link href="/profile">Profile </Link>
-      ) : (
-        <Link href="/login">Login</Link>
-      )}
-    </div>
+    <>
+      <div className="flex justify-between items-center text-2xl">
+        <Link
+          className="border-2 p-2 rounded-md bg-red-500 text-white"
+          href="/dashboard"
+        >
+          add poster
+        </Link>
+        {/* {data?.role== "USER"&&<Link href="admin">Admin</Link> } */}
+        {accessToken ? (
+          <Link href="/profile">Profile</Link>
+        ) : (
+          <Link href="/login">Login</Link>
+        )}
+        <Link href="/">DIVAR</Link>
+      </div>
+      <hr className="w-full bg-slate-400 mt-3" />
+    </>
   );
 };
