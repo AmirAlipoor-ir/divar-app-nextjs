@@ -9,7 +9,7 @@ const loginApi = baseApi.injectEndpoints({
         url: "/user/whoami",
         method: "GET",
       }),
-      providesTags: ["user"],
+      // providesTags: ["user"],
     }),
 
     sendOtp: builder.mutation<SendOtp, string>({

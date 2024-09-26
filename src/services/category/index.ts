@@ -1,9 +1,16 @@
 import { baseApi } from "../basic";
 
-import { AddCategory } from "./types";
+import { AddCategory, GetCategory } from "./types";
 
 const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getCategory: builder.query<GetCategory, void>({
+      query: () => ({
+        url: "/category",
+        method: "GET",
+      }),
+      providesTags: ["category"],
+    }),
     addCategory: builder.mutation<AddCategory, AddCategory>({
       query: ({ categoryName, categoryIcon }) => ({
         url: "/category",
@@ -13,9 +20,10 @@ const loginApi = baseApi.injectEndpoints({
           icon: categoryIcon,
         },
       }),
+      invalidatesTags: ["category"],
     }),
   }),
 
   overrideExisting: false,
 });
-export const { useAddCategoryMutation } = loginApi;
+export const { useGetCategoryQuery, useAddCategoryMutation } = loginApi;
