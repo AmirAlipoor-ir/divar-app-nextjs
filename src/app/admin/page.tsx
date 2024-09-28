@@ -4,6 +4,8 @@ import { ChangeEvent, FormEvent, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import Cookies from "js-cookie";
+
 import { useWhoamiQuery } from "@/services/login";
 import { useAddCategoryMutation } from "@/services/category";
 import { CategoryList } from "@/components/Category";
@@ -18,7 +20,11 @@ export default function AdminPage() {
 
   const { data } = useWhoamiQuery();
 
+  const cookie = Cookies.get("accessTokenCookie");
+
   if (data?.role === "ADMIN") router.push("/");
+
+  if (!cookie) router.push("/");
 
   const handleChangeCategoryName = (e: ChangeEvent<HTMLInputElement>) => {
     setCategoryName(e.target.value);
