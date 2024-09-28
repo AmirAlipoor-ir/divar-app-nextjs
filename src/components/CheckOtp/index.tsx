@@ -31,7 +31,6 @@ export const CheckOtp = () => {
         otpCode,
       }).unwrap();
       setCookies({ data });
-      console.log(data);
 
       toast.success("you login successfully");
       router.push("/profile");

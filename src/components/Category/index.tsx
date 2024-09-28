@@ -4,11 +4,12 @@ import {
   useDeleteCategoryMutation,
   useGetCategoryQuery,
 } from "@/services/category";
+
 import Image from "next/image";
+
 import trash from "../../../public/delete.svg";
 
 export const CategoryList = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data: any = useGetCategoryQuery();
 
   const [categoryId] = useDeleteCategoryMutation();

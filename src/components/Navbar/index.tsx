@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 
 import { useWhoamiQuery } from "@/services/login";
 
-
 import Image from "next/image";
 
 export const Navbar = () => {
