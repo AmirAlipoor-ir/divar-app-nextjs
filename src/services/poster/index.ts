@@ -4,13 +4,13 @@ import { AddPoster, GetPoster } from "./type";
 
 const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getCategory: builder.query<GetPoster, void>({
+    getPoster: builder.query<GetPoster, void>({
       query: () => ({
         url: "/post/my",
         method: "GET",
       }),
     }),
-    addCategory: builder.mutation<AddPoster, AddPoster>({
+    addPoster: builder.mutation<AddPoster, AddPoster>({
       query: ({ categoryName, categoryIcon }) => ({
         url: "/post/create",
         method: "POST",
@@ -20,7 +20,7 @@ const loginApi = baseApi.injectEndpoints({
         },
       }),
     }),
-    deleteCategory: builder.mutation<string, string>({
+    deletePoster: builder.mutation<string, string>({
       query: (id) => ({
         url: `/post/delete/${id}`,
         method: "DELETE",
@@ -32,7 +32,7 @@ const loginApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 export const {
-  useGetCategoryQuery,
-  useAddCategoryMutation,
-  useDeleteCategoryMutation,
+  useGetPosterQuery,
+  useAddPosterMutation,
+  useDeletePosterMutation,
 } = loginApi;
