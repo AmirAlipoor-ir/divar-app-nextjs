@@ -1,13 +1,19 @@
 "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
+
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+
+import Cookies from "js-cookie";
 
 import { useGetCategoryQuery } from "@/services/category";
 
 import { useAddPosterMutation } from "@/services/poster";
 
 import { MyPost } from "@/components/MyPost";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
+  const router = useRouter();
+
   const [title, setTitle] = useState("");
 
   const [content, setContent] = useState("");
@@ -15,8 +21,6 @@ export default function DashboardPage() {
   const [amount, setAmount] = useState("");
 
   const [city, setCity] = useState("");
-
-  const [images, setImages] = useState("");
 
   const [category, setCategory] = useState("");
 
@@ -26,7 +30,7 @@ export default function DashboardPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createPoster({ title, content, amount, city, images, category });
+    createPoster({ title, content, amount, city, category });
   };
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +48,13 @@ export default function DashboardPage() {
   const handleChangeCity = (e: ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value);
   };
-
-  const handleChangeImages = (e: ChangeEvent<HTMLInputElement>) => {
-    setImages(e.target.value);
-  };
   const handleChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
+  const token = Cookies.get("accessTokenCookie");
+  useEffect(() => {
+    if (!token) router.push("/login");
+  }, [router, token]);
 
   return (
     <div>
@@ -102,10 +106,10 @@ export default function DashboardPage() {
               </option>
             ))}
           </select>
-          <input type="file" onChange={handleChangeImages} value={images} />
           <button
+            disabled={!title || !amount}
             type="submit"
-            className="border-2 w-full mt-10 rounded-lg py-3 text-white bg-red-500 text-2xl "
+            className="border-2 w-full mt-10 rounded-lg py-3 text-white bg-red-500 text-2xl disabled:bg-slate-500"
           >
             Add poster
           </button>
