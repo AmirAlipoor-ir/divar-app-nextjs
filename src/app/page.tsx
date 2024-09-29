@@ -1,13 +1,24 @@
 "use client";
-import { useGetCategoryQuery } from "@/services/category";
-import { useGetPosterQuery } from "@/services/poster";
+
 import Image from "next/image";
 
+import { useGetCategoryQuery } from "@/services/category";
+
+import { useGetPosterQuery } from "@/services/poster";
+import Link from "next/link";
+
 export default function Home() {
-  const { data } = useGetPosterQuery();
+  const { data, isLoading } = useGetPosterQuery();
 
   const category = useGetCategoryQuery();
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center text-2xl">
+        Loading........... Please do not leave the page
+      </div>
+    );
+  }
   return (
     <div className="mt-10 flex justify-between gap-x-3">
       <section className="w-1/5">
@@ -28,23 +39,28 @@ export default function Home() {
       </section>
       <div className="flex flex-wrap gap-9 justify-center w-4/5 ">
         {data?.posts.map((item, index: number) => (
-          <div className="border-2 rounded-md flex p-3 w-36 overflow-hidden" key={index}>
-            {/* <Image
+          <Link key={index} href={`/poster/${item._id}`}>
+            <div
+              className="border-2 rounded-md flex p-3 w-36 overflow-hidden"
+              key={index}
+            >
+              {/* <Image
               className="rounded-md"
               src={item.images}
               alt={item.options.title}
               // width={150}
               // height={50}
             /> */}
-            <div className="flex flex-col justify-between">
-              <span className="text-3xl block">{item.options.title}</span>
-              <span className="text-sm block">price:{item.amount}</span>
-              <span className="text-sm block text-ellipsis whitespace-nowrap overflow-hidden">
-                content:{item.options.content}
-              </span>
-              <span>{item.city}</span>
+              <div className="flex flex-col justify-between">
+                <span className="text-3xl block">{item.options.title}</span>
+                <span className="text-sm block">price:{item.amount}</span>
+                <span className="text-sm block text-ellipsis whitespace-nowrap overflow-hidden">
+                  content:{item.options.content}
+                </span>
+                <span>{item.city}</span>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
