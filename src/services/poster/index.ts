@@ -6,26 +6,41 @@ const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getPoster: builder.query<GetPoster, void>({
       query: () => ({
-        url: "/post/my",
+        url: "/",
         method: "GET",
       }),
+      providesTags: ["poster"],
     }),
-    addPoster: builder.mutation<AddPoster, AddPoster>({
-      query: ({ categoryName, categoryIcon }) => ({
+    addPoster: builder.mutation<void, AddPoster>({
+      query: ({ title, content, amount, city, images }) => ({
         url: "/post/create",
         method: "POST",
         body: {
-          name: categoryName,
-          icon: categoryIcon,
+          title,
+          content,
+          city,
+          amount,
+          images,
         },
       }),
+      invalidatesTags: ["poster"],
     }),
+
+    getMyPoster: builder.query<GetPoster, void>({
+      query: () => ({
+        url: "/post/my",
+        method: "GET",
+      }),
+      providesTags: ["poster"],
+    }),
+
     deletePoster: builder.mutation<string, string>({
       query: (id) => ({
         url: `/post/delete/${id}`,
         method: "DELETE",
         body: id,
       }),
+      invalidatesTags: ["poster"],  
     }),
   }),
 
@@ -35,4 +50,5 @@ export const {
   useGetPosterQuery,
   useAddPosterMutation,
   useDeletePosterMutation,
+  useGetMyPosterQuery,
 } = loginApi;

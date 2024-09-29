@@ -1,10 +1,15 @@
 export interface AddPoster {
-  categoryName: string;
-  categoryIcon: string;
+  title: string;
+  content: string;
+  city: string;
+  category: string;
+  amount: string;
+  images: null;
 }
 export interface GetPoster {
   id: string;
-  name: string;
-  icon: string;
-  slug: string;
+  title: string;
+  content: string;
+  city: string;
+  category: string;
 }
