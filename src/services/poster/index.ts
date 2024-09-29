@@ -12,7 +12,7 @@ const loginApi = baseApi.injectEndpoints({
       providesTags: ["poster"],
     }),
     addPoster: builder.mutation<void, AddPoster>({
-      query: ({ title, content, amount, city, images }) => ({
+      query: ({ title, content, amount, city }) => ({
         url: "/post/create",
         method: "POST",
         body: {
@@ -20,7 +20,6 @@ const loginApi = baseApi.injectEndpoints({
           content,
           city,
           amount,
-          images,
         },
       }),
       invalidatesTags: ["poster"],

@@ -4,7 +4,6 @@ export interface AddPoster {
   city: string;
   category: string;
   amount: string;
-  images: null;
 }
 export interface GetPoster {
   id: string;
