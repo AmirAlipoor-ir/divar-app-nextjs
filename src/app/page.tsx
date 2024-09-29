@@ -1,65 +1,25 @@
 "use client";
 import { useGetCategoryQuery } from "@/services/category";
+import { useGetPosterQuery } from "@/services/poster";
+import Image from "next/image";
 
 export default function Home() {
-  const posters = [
-    {
-      title: "dog",
-      price: "123495",
-      city: "qazvin",
-    },
-    {
-      title: "car",
-      price: "56",
-      city: "qazvin",
-    },
-    {
-      title: "ben",
-      price: "12000",
-      city: "gilan",
-    },
-    {
-      title: "car",
-      price: "56",
-      city: "qazvin",
-    },
-    {
-      title: "car",
-      price: "23000",
-      city: "tehran",
-    },
-    {
-      title: "mobile",
-      price: "1230",
-      city: "sanandaj",
-    },
-    {
-      title: "glass",
-      price: "1235",
-      city: "qazvin",
-    },
-    {
-      title: "car",
-      price: "56",
-      city: "qazvin",
-    }, {
-      title: "car",
-      price: "56",
-      city: "qazvin",
-    },
-  ];
+  const { data } = useGetPosterQuery();
 
-  const data: any = useGetCategoryQuery();
+  const category = useGetCategoryQuery();
 
   return (
     <div className="mt-10 flex justify-between gap-x-3">
       <section className="w-1/5">
         <h1 className="font-black text-2xl mb-5">Categories List</h1>
         <div>
-          {data.data?.map(
+          {category.data?.map(
             ({ name, icon }: { name: string; icon: string }, index: number) => (
-              <div className="flex mb-3 gap-x-2 border-2 rounded-lg p-1" key={index}>
-                <img src={`/${icon}.svg`} alt="icon" />
+              <div
+                className="flex mb-3 gap-x-2 border-2 rounded-lg p-1"
+                key={index}
+              >
+                <Image src={`/${icon}.svg`} alt="icon" width={25} height={25} />
                 <span>{name}</span>
               </div>
             )
@@ -67,21 +27,21 @@ export default function Home() {
         </div>
       </section>
       <div className="flex flex-wrap gap-9 justify-center w-4/5 ">
-        {posters.map((item,index) => (
-          <div
-            className="border-2 rounded-md flex p-3 max-w-72"
-            key={index}
-          >
+        {data?.posts.map((item, index: number) => (
+          <div className="border-2 rounded-md flex p-3 w-36 overflow-hidden" key={index}>
             {/* <Image
               className="rounded-md"
-              src={item.title}
-              alt={item.title}
-              width={150}
-              height={50}
+              src={item.images}
+              alt={item.options.title}
+              // width={150}
+              // height={50}
             /> */}
             <div className="flex flex-col justify-between">
-              <span className="text-3xl block">{item.title}</span>
-              <span className="text-sm block">price:{item.price}</span>
+              <span className="text-3xl block">{item.options.title}</span>
+              <span className="text-sm block">price:{item.amount}</span>
+              <span className="text-sm block text-ellipsis whitespace-nowrap overflow-hidden">
+                content:{item.options.content}
+              </span>
               <span>{item.city}</span>
             </div>
           </div>
