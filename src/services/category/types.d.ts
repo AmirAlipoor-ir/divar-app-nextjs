@@ -1,10 +1,10 @@
-export interface  AddCategory {
+export interface AddCategory {
   categoryName: string;
   categoryIcon: string;
 }
-export interface GetCategory {
-  id: string;
+export type GetCategory = {
+  _id: string;
   name: string;
   icon: string;
   slug: string;
-}
+}[];

@@ -26,8 +26,12 @@ export const LoginForm = ({ setStep }: AddStep) => {
       sessionStorage.setItem("phoneNumber", phoneNumber);
       setPhoneNumber("");
       setStep(2);
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 

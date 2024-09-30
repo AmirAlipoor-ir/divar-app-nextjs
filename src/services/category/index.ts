@@ -34,4 +34,8 @@ const loginApi = baseApi.injectEndpoints({
 
   overrideExisting: false,
 });
-export const { useGetCategoryQuery, useAddCategoryMutation,useDeleteCategoryMutation } = loginApi;
+export const {
+  useGetCategoryQuery,
+  useAddCategoryMutation,
+  useDeleteCategoryMutation,
+} = loginApi;

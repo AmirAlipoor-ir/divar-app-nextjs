@@ -22,7 +22,7 @@ const loginApi = baseApi.injectEndpoints({
       }),
     }),
 
-    checkOtp: builder.mutation<CheckOtpCode, CheckOtpCode>({
+    checkOtp: builder.mutation<CheckOtpRes, CheckOtpCode>({
       query: ({ phoneNumber, otpCode }) => ({
         url: "/auth/check-otp",
         method: "POST",
@@ -33,7 +33,7 @@ const loginApi = baseApi.injectEndpoints({
       }),
     }),
 
-    chekRefreshToken: builder.mutation<CheckOtpRes, string>({
+    chekRefreshToken: builder.mutation<CheckOtpRes, CheckOtpRes>({
       query: (refreshToken) => ({
         url: "/auth/check-refresh-token",
         method: "POST",

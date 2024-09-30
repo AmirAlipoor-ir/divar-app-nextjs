@@ -26,16 +26,19 @@ export const CheckOtp = () => {
   const handleSubmitOtp = async (e: AddFormEvent) => {
     try {
       e.preventDefault();
-      const data: any = await sendOtp({
+      const data = await sendOtp({
         phoneNumber: sessionStorage.getItem("phoneNumber")!,
         otpCode,
       }).unwrap();
       setCookies({ data });
-
+      router.push("/dashboard");
       toast.success("you login successfully");
-      router.push("/profile");
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 
