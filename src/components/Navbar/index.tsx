@@ -6,8 +6,6 @@ import Link from "next/link";
 
 import Cookies from "js-cookie";
 
-import { useWhoamiQuery } from "@/services/login";
-
 import Image from "next/image";
 
 export const Navbar = () => {
@@ -25,8 +23,6 @@ export const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const { data } = useWhoamiQuery();
-
   return (
     <>
       <div className="flex justify-between items-center text-2xl">
@@ -36,14 +32,14 @@ export const Navbar = () => {
         >
           add poster
         </Link>
-        {data?.role == "USER" && <Link href="admin">Admin</Link>}
-        {/* {accessToken ? (
+        {/* {data?.role == "USER" && <Link href="admin">Admin</Link>} */}
+        {accessToken ? (
           <Link href="/profile">Profile</Link>
         ) : (
           <Link href="/login">Login</Link>
-        )} */}
+        )}
         <Link href="/">
-          <Image src="/divar.svg" alt="divar" width={50} height={50}    />
+          <Image src="/divar.svg" alt="divar" width={50} height={50} />
         </Link>
       </div>
       <hr className="w-full bg-slate-400 mt-3" />
