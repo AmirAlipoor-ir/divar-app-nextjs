@@ -7,10 +7,8 @@ import {
 
 import Image from "next/image";
 
-import trash from "../../../public/delete.svg";
-
 export const CategoryList = () => {
-  const data: any = useGetCategoryQuery();
+  const data = useGetCategoryQuery();
 
   const [categoryId] = useDeleteCategoryMutation();
 
@@ -22,29 +20,30 @@ export const CategoryList = () => {
     <div className=" w-full">
       <h2 className="mb-1 text-2xl">categorys</h2>
       <hr className="border-2 mb-5" />
-      {data.data?.map(
-        (
-          { icon, name, _id }: { icon: string; name: string; _id: string },
-          index: number
-        ) => (
-          <div
-            key={index}
-            className="border border-1 p-3  rounded-md flex justify-between mb-3"
-          >
-            <div className="flex items-center gap-x-2">
-              <img src={`/${icon}.svg`} alt="icon" /> <span>{name}</span>
-            </div>
-            <button onClick={() => handleDeleteCategory(_id)}>
-              <Image
-                src={trash}
-                alt="trash"
-                width={30}
-                className="fill-red-500"
-              />
-            </button>
+      {data.data?.map((item, index: number) => (
+        <div
+          key={index}
+          className="border border-1 p-3  rounded-md flex justify-between mb-3"
+        >
+          <div className="flex items-center gap-x-2">
+            <Image
+              src={`/${item.icon}.svg`}
+              alt="icon"
+              width={25}
+              height={25}
+            />
+            <span>{item.name}</span>
           </div>
-        )
-      )}
+          <button onClick={() => handleDeleteCategory(item._id)}>
+            <Image
+              src="/"
+              alt="trash/delete.svg"
+              width={30}
+              className="fill-red-500"
+            />
+          </button>
+        </div>
+      ))}
     </div>
   );
 };
