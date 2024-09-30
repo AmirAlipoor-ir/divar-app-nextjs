@@ -1,18 +1,23 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 
 import Cookies from "js-cookie";
 
+import toast from "react-hot-toast";
+
 import { useWhoamiQuery } from "@/services/login";
+
 import { useAddCategoryMutation } from "@/services/category";
+
 import { CategoryList } from "@/components/Category";
 
+import { FormData } from "../type";
+
 export default function AdminPage() {
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryIcon, setCategoryIcon] = useState("");
+  const { register, handleSubmit, reset } = useForm<FormData>();
 
   const [createCategory] = useAddCategoryMutation();
 
@@ -26,19 +31,23 @@ export default function AdminPage() {
 
   if (!cookie) router.push("/");
 
-  const handleChangeCategoryName = (e: ChangeEvent<HTMLInputElement>) => {
-    setCategoryName(e.target.value);
-  };
-
-  const handleChangeCategoryIcon = (e: ChangeEvent<HTMLInputElement>) => {
-    setCategoryIcon(e.target.value);
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await createCategory({ categoryName, categoryIcon }).unwrap();
-    setCategoryName("");
-    setCategoryIcon("");
+  const onSubmit: SubmitHandler<FormData> = async (data: {
+    name: string;
+    icon: string;
+  }) => {
+    try {
+      await createCategory({
+        categoryName: data.name,
+        categoryIcon: data.icon,
+      });
+      reset();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+    }
   };
 
   return (
@@ -50,21 +59,19 @@ export default function AdminPage() {
           <h2 className="mb-1 text-2xl">New category </h2>
           <hr className="border-2 mb-5 w-[98%]" />
 
-          <form onSubmit={handleSubmit} className="flex flex-col">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
             <label className="text-xl mb-3">category name</label>
             <input
+              {...register("name", { required: true })}
               type="text"
               className="rounded-md border-2 px-3 h-10 w-80 mb-4"
-              value={categoryName}
-              onChange={handleChangeCategoryName}
             />
             {/* ......................................... */}
             <label className="text-xl mb-3">icon</label>
             <input
+              {...register("icon", { required: true })}
               type="text"
               className="rounded-md border-2 px-3 h-10 w-80 mb-3"
-              value={categoryIcon}
-              onChange={handleChangeCategoryIcon}
             />
             {/* ------------------------------------------ */}
             <button
@@ -75,7 +82,6 @@ export default function AdminPage() {
             </button>
           </form>
         </div>
-        {/* ........................................................ */}
         <CategoryList />
       </div>
     </div>

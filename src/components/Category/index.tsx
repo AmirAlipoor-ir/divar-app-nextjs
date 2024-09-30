@@ -36,9 +36,10 @@ export const CategoryList = () => {
           </div>
           <button onClick={() => handleDeleteCategory(item._id)}>
             <Image
-              src="/"
-              alt="trash/delete.svg"
+              src="/delete.svg"
+              alt="delete"
               width={30}
+              height={30}
               className="fill-red-500"
             />
           </button>
