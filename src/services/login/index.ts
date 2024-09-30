@@ -1,6 +1,6 @@
 import { baseApi } from "../basic";
 
-import { CheckOtpCode, CheckOtpRes, SendOtp, WhoAmIRes } from "./types";
+import { CheckOtpCode, CheckOtpRes, GetOtpRes, SendOtp, SendOtpRes, WhoAmIRes } from "./types";
 
 const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -33,7 +33,7 @@ const loginApi = baseApi.injectEndpoints({
       }),
     }),
 
-    chekRefreshToken: builder.mutation<CheckOtpRes, CheckOtpRes>({
+    chekRefreshToken: builder.mutation<GetOtpRes, SendOtpRes>({
       query: (refreshToken) => ({
         url: "/auth/check-refresh-token",
         method: "POST",

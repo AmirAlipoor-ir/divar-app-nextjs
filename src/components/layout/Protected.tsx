@@ -9,8 +9,8 @@ import { useChekRefreshTokenMutation } from "@/services/login";
 import { getExpireAccessDate } from "@/utils/cookies";
 
 export const Protected = ({ children }: { children: ReactNode }) => {
-  const refreshTokenCookie = Cookies.get("refreshTokenCookie");
-  const accessTokenCookie = Cookies.get("accessTokenCookie");
+  const refreshToken = Cookies.get("refreshTokenCookie");
+  const accessToken = Cookies.get("accessTokenCookie");
 
   const [getNewToken] = useChekRefreshTokenMutation();
 
@@ -18,31 +18,28 @@ export const Protected = ({ children }: { children: ReactNode }) => {
     const fetchData = async () => {
       const now = Math.floor(Date.now() / 1000);
 
-      if (!accessTokenCookie && refreshTokenCookie) {
-        const data = await getNewToken(refreshTokenCookie).unwrap();
+      if (!accessToken && refreshToken) {
+        const data = await getNewToken(refreshToken).unwrap();
 
-        const accessTokenExpireDate: any = getExpireAccessDate(
-          data.accessToken
-        );
+        const accessTokenExpireDate = getExpireAccessDate(data.accessToken);
 
         Cookies.set("accessTokenCookie", data.accessToken, {
-          expires: new Date(accessTokenExpireDate * 1000),
+          expires: new Date(accessTokenExpireDate! * 1000),
         });
-      } else if (accessTokenCookie) {
-        const accessTokenExpireDate: any =
-          getExpireAccessDate(accessTokenCookie);
+      } else if (accessToken) {
+        const accessTokenExpireDate = getExpireAccessDate(accessToken);
 
-        if (accessTokenExpireDate - now <= 5) {
-          if (refreshTokenCookie) {
-            const data = await getNewToken(refreshTokenCookie);
+        if (accessTokenExpireDate! - now <= 5) {
+          if (refreshToken) {
+            const data = await getNewToken(refreshToken);
 
             if (data.data?.accessToken) {
-              const newAccessTokenExpireDate: any = getExpireAccessDate(
+              const newAccessTokenExpireDate = getExpireAccessDate(
                 data.data.accessToken
               );
 
               Cookies.set("accessTokenCookie", data.data.accessToken, {
-                expires: new Date(newAccessTokenExpireDate * 1000),
+                expires: new Date(newAccessTokenExpireDate! * 1000),
               });
             }
           }
@@ -57,7 +54,7 @@ export const Protected = ({ children }: { children: ReactNode }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [accessTokenCookie, getNewToken, refreshTokenCookie]);
+  }, [accessToken, getNewToken, refreshToken]);
 
   return <>{children}</>;
 };

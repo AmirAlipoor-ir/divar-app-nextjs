@@ -10,6 +10,7 @@ export interface Post {
   options: {
     content: ReactNode;
     title: string;
+    city: string;
   };
   _id: string;
   title: string;
