@@ -1,6 +1,13 @@
 import { baseApi } from "../basic";
 
-import { CheckOtpCode, CheckOtpRes, GetOtpRes, SendOtp, SendOtpRes, WhoAmIRes } from "./types";
+import {
+  CheckOtpCode,
+  CheckOtpRes,
+  GetOtpRes,
+  SendOtp,
+  SendOtpRes,
+  WhoAmIRes,
+} from "./types";
 
 const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +16,6 @@ const loginApi = baseApi.injectEndpoints({
         url: "/user/whoami",
         method: "GET",
       }),
-      // providesTags: ["user"],
     }),
 
     sendOtp: builder.mutation<SendOtp, string>({

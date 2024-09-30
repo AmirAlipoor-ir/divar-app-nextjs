@@ -20,7 +20,7 @@ export const CategoryList = () => {
     <div className=" w-full">
       <h2 className="mb-1 text-2xl">categorys</h2>
       <hr className="border-2 mb-5" />
-      {data.data?.map((item, index: number) => (
+      {data.data?.map((item, index) => (
         <div
           key={index}
           className="border border-1 p-3  rounded-md flex justify-between mb-3"

@@ -1,27 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import Link from "next/link";
-
-import Cookies from "js-cookie";
 
 import Image from "next/image";
 
+import { useWhoamiQuery } from "@/services/login";
+
 export const Navbar = () => {
-  const [accessToken, setAccessToken] = useState<string | undefined>(
-    Cookies.get("accessTokenCookie")
-  );
-
-  useEffect(() => {
-    const handleCookieChange = () => {
-      setAccessToken(Cookies.get("accessTokenCookie"));
-    };
-
-    const interval = setInterval(handleCookieChange, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { data } = useWhoamiQuery();
 
   return (
     <>
@@ -32,12 +18,7 @@ export const Navbar = () => {
         >
           add poster
         </Link>
-        {/* {data?.role == "USER" && <Link href="admin">Admin</Link>} */}
-        {accessToken ? (
-          <Link href="/profile">Profile</Link>
-        ) : (
-          <Link href="/login">Login</Link>
-        )}
+        {data?.role == "USER" && <Link href="admin">Admin</Link>}
         <Link href="/">
           <Image src="/divar.svg" alt="divar" width={50} height={50} />
         </Link>

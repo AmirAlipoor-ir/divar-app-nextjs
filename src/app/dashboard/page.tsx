@@ -21,20 +21,26 @@ import { PosterRes } from "../type";
 export default function DashboardPage() {
   const { register, handleSubmit, reset } = useForm<PosterRes>();
 
-  const router = useRouter();
-
   const [createPoster] = useAddPosterMutation();
 
   const { data } = useGetCategoryQuery();
 
-  const onSubmit: SubmitHandler<PosterRes> = async (data) => {
+  const { push } = useRouter();
+
+  const onSubmit: SubmitHandler<PosterRes> = async ({
+    title,
+    content,
+    amount,
+    city,
+    category,
+  }) => {
     try {
       await createPoster({
-        title: data.title,
-        content: data.content,
-        amount: data.amount,
-        city: data.city,
-        category: data.category,
+        title,
+        content,
+        amount,
+        city,
+        category,
       });
       reset();
     } catch (error: unknown) {
@@ -48,8 +54,8 @@ export default function DashboardPage() {
 
   const token = Cookies.get("accessTokenCookie");
   useEffect(() => {
-    if (!token) router.push("/login");
-  }, [router, token]);
+    if (!token) push("/login");
+  }, [push, token]);
 
   return (
     <div>
@@ -87,14 +93,13 @@ export default function DashboardPage() {
 
           <label className="posterLabel">Chategory:</label>
           <select className="posterSelect" {...register("category")}>
-            {data?.map(({ name }: { name: string }, index: number) => (
+            {data?.map(({ name }, index) => (
               <option key={index} value={name}>
                 {name}
               </option>
             ))}
           </select>
           <button
-            // disabled={!title || !amount}
             type="submit"
             className="border-2 w-full mt-10 rounded-lg py-3 text-white bg-red-500 text-2xl disabled:bg-slate-500"
           >

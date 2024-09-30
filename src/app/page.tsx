@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useGetCategoryQuery } from "@/services/category";
-
 import { useGetPosterQuery } from "@/services/poster";
 
 export default function Home() {
@@ -20,26 +19,25 @@ export default function Home() {
       </div>
     );
   }
+
   return (
     <div className="mt-10 flex justify-between gap-x-3">
       <section className="w-1/5">
         <h1 className="font-black text-2xl mb-5">Categories List</h1>
         <div>
-          {category.data?.map(
-            ({ name, icon }: { name: string; icon: string }, index: number) => (
-              <div
-                className="flex mb-3 gap-x-2 border-2 rounded-lg p-1"
-                key={index}
-              >
-                <Image src={`/${icon}.svg`} alt="icon" width={25} height={25} />
-                <span>{name}</span>
-              </div>
-            )
-          )}
+          {category.data?.map(({ name, icon }, index) => (
+            <div
+              className="flex mb-3 gap-x-2 border-2 rounded-lg p-1"
+              key={index}
+            >
+              <Image src={`/${icon}.svg`} alt="icon" width={25} height={25} />
+              <span>{name}</span>
+            </div>
+          ))}
         </div>
       </section>
       <div className="flex flex-wrap gap-9 justify-center w-4/5 ">
-        {data?.posts.map((item, index: number) => (
+        {data?.posts.map((item, index) => (
           <Link key={index} href={`/poster/${item._id}`}>
             <div className="border-2 rounded-md flex p-3 w-36 overflow-hidden">
               <div className="flex flex-col justify-between">

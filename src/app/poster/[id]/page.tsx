@@ -3,7 +3,11 @@
 import { useGetPosterQuery } from "@/services/poster";
 import { useRouter } from "next/navigation";
 
-const ReviewDetailPage = ({ params }: { params: { id: string } }) => {
+export default function ReviewDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const router = useRouter();
 
   const { data } = useGetPosterQuery();
@@ -33,6 +37,4 @@ const ReviewDetailPage = ({ params }: { params: { id: string } }) => {
       </div>
     </div>
   );
-};
-
-export default ReviewDetailPage;
+}

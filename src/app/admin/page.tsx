@@ -9,7 +9,6 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
 import { useWhoamiQuery } from "@/services/login";
-
 import { useAddCategoryMutation } from "@/services/category";
 
 import { CategoryList } from "@/components/Category";
@@ -21,9 +20,9 @@ export default function AdminPage() {
 
   const [createCategory] = useAddCategoryMutation();
 
-  const router = useRouter();
-
   const { data } = useWhoamiQuery();
+
+  const router = useRouter();
 
   const cookie = Cookies.get("accessTokenCookie");
 
@@ -31,14 +30,11 @@ export default function AdminPage() {
 
   if (!cookie) router.push("/");
 
-  const onSubmit: SubmitHandler<FormData> = async (data: {
-    name: string;
-    icon: string;
-  }) => {
+  const onSubmit: SubmitHandler<FormData> = async ({ name, icon }) => {
     try {
       await createCategory({
-        categoryName: data.name,
-        categoryIcon: data.icon,
+        categoryName: name,
+        categoryIcon: icon,
       }).unwrap();
       reset();
     } catch (error: unknown) {
@@ -66,14 +62,12 @@ export default function AdminPage() {
               type="text"
               className="rounded-md border-2 px-3 h-10 w-80 mb-4"
             />
-            {/* ......................................... */}
             <label className="text-xl mb-3">icon</label>
             <input
               {...register("icon", { required: true })}
               type="text"
               className="rounded-md border-2 px-3 h-10 w-80 mb-3"
             />
-            {/* ------------------------------------------ */}
             <button
               type="submit"
               className="w-80 border-2 mt-3 rounded-lg text-white bg-red-600 py-2 text-xl"

@@ -37,7 +37,6 @@ const loginApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/post/delete/${id}`,
         method: "DELETE",
-        body: id,
       }),
       invalidatesTags: ["poster"],
     }),

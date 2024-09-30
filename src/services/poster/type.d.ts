@@ -22,5 +22,7 @@ export interface Post {
   category: string;
 }
 export interface PostListPayload {
+  _id: string;
+  amount: number;
   posts: Post[];
 }
