@@ -1,10 +1,10 @@
 import { baseApi } from "../basic";
 
-import { AddPoster, GetPoster } from "./type";
+import { AddPoster, PostListPayload } from "./type";
 
 const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getPoster: builder.query<GetPoster, void>({
+    getPoster: builder.query<PostListPayload, void>({
       query: () => ({
         url: "/",
         method: "GET",
@@ -25,7 +25,7 @@ const loginApi = baseApi.injectEndpoints({
       invalidatesTags: ["poster"],
     }),
 
-    getMyPoster: builder.query<GetPoster, void>({
+    getMyPoster: builder.query<PostListPayload, void>({
       query: () => ({
         url: "/post/my",
         method: "GET",
@@ -39,7 +39,7 @@ const loginApi = baseApi.injectEndpoints({
         method: "DELETE",
         body: id,
       }),
-      invalidatesTags: ["poster"],  
+      invalidatesTags: ["poster"],
     }),
   }),
 

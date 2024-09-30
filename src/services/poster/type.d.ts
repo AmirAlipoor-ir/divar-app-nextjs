@@ -5,10 +5,21 @@ export interface AddPoster {
   category: string;
   amount: string;
 }
-export interface GetPoster {
-  id: string;
+
+export interface Post {
+  options: {
+    content: ReactNode;
+    title: string;
+  };
+  _id: string;
   title: string;
   content: string;
+  images: string[];
+  createdAt: string;
+  amount: number;
   city: string;
   category: string;
+}
+export interface PostListPayload {
+  posts: Post[];
 }
