@@ -3,16 +3,17 @@
 import { useGetPosterQuery } from "@/services/poster";
 import { useRouter } from "next/navigation";
 
-const ReviewDetailPage = ({ params }: any) => {
+const ReviewDetailPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
   const { data } = useGetPosterQuery();
 
-  const posterId = params.poster;
+  const posterId = params.id;
 
   const posterDetail = data?.posts.find(
     ({ _id }: { _id: string }) => _id === posterId
   );
+
   const handleGoBack = () => {
     router.push("/");
   };
