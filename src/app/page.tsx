@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 
+import Link from "next/link";
+
 import { useGetCategoryQuery } from "@/services/category";
 
 import { useGetPosterQuery } from "@/services/poster";
-import Link from "next/link";
 
 export default function Home() {
   const { data, isLoading } = useGetPosterQuery();
@@ -40,17 +41,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-9 justify-center w-4/5 ">
         {data?.posts.map((item, index: number) => (
           <Link key={index} href={`/poster/${item._id}`}>
-            <div
-              className="border-2 rounded-md flex p-3 w-36 overflow-hidden"
-              key={index}
-            >
-              {/* <Image
-              className="rounded-md"
-              src={item.images}
-              alt={item.options.title}
-              // width={150}
-              // height={50}
-            /> */}
+            <div className="border-2 rounded-md flex p-3 w-36 overflow-hidden">
               <div className="flex flex-col justify-between">
                 <span className="text-3xl block">{item.options.title}</span>
                 <span className="text-sm block">price:{item.amount}</span>
