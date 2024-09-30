@@ -1,34 +1,29 @@
 "use client";
 
-import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 
 import toast from "react-hot-toast";
+
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { setCookies } from "@/utils/cookies";
 
 import { useCheckOtpMutation } from "@/services/login";
 
-import { AddFormEvent, AddInputEvent } from "./types";
+import { OtpRes } from "./types";
 
 export const CheckOtp = () => {
-  const [otpCode, setOtpCode] = useState("");
+  const { register, handleSubmit } = useForm<OtpRes>();
 
   const [sendOtp, { isLoading }] = useCheckOtpMutation();
 
   const router = useRouter();
 
-  const handleOtpCode = (e: AddInputEvent) => {
-    setOtpCode(e.target.value);
-  };
-
-  const handleSubmitOtp = async (e: AddFormEvent) => {
+  const onSubmit: SubmitHandler<OtpRes> = async (e) => {
     try {
-      e.preventDefault();
       const data = await sendOtp({
         phoneNumber: sessionStorage.getItem("phoneNumber")!,
-        otpCode,
+        otpCode: e.otpCode,
       }).unwrap();
       setCookies({ data });
       router.push("/dashboard");
@@ -45,7 +40,7 @@ export const CheckOtp = () => {
   return (
     <div>
       <form
-        onSubmit={handleSubmitOtp}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y-3 text-xl pt-5"
       >
         <label htmlFor="phoneNumber">Enter the code</label>
@@ -54,8 +49,7 @@ export const CheckOtp = () => {
           placeholder="Enter code"
           className="rounded-md border-2 px-3 h-10 w-80"
           id="phonenumber"
-          value={otpCode}
-          onChange={handleOtpCode}
+          {...register("otpCode", { required: true })}
         />
         <div>
           <button

@@ -39,7 +39,7 @@ export default function AdminPage() {
       await createCategory({
         categoryName: data.name,
         categoryIcon: data.icon,
-      });
+      }).unwrap();
       reset();
     } catch (error: unknown) {
       if (error instanceof Error) {

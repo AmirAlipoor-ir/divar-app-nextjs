@@ -7,3 +7,7 @@ export type AddStep = {
 export type AddFormEvent = FormEvent<HTMLFormElement>;
 
 export type AddInputEvent = ChangeEvent<HTMLInputElement>;
+
+export type PhoneNumberRes = {
+  phoneNumber: string;
+};

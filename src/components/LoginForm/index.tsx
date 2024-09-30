@@ -1,30 +1,29 @@
 "use client";
 
-import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 
 import Cookies from "js-cookie";
+
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import toast from "react-hot-toast";
 
 import { useSendOtpMutation } from "@/services/login";
 
-import { AddFormEvent, AddInputEvent, AddStep } from "./types";
+import { AddStep, PhoneNumberRes } from "./types";
 
 export const LoginForm = ({ setStep }: AddStep) => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const { register, handleSubmit, reset } = useForm<PhoneNumberRes>();
 
   const [createUser, { isLoading }] = useSendOtpMutation();
 
   const router = useRouter();
 
-  const handleSubmit = async (e: AddFormEvent) => {
+  const onSubmit: SubmitHandler<PhoneNumberRes> = async (data) => {
     try {
-      e.preventDefault();
-      await createUser(phoneNumber).unwrap();
-      sessionStorage.setItem("phoneNumber", phoneNumber);
-      setPhoneNumber("");
+      await createUser(data.phoneNumber).unwrap();
+      sessionStorage.setItem("phoneNumber", data.phoneNumber);
+      reset();
       setStep(2);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -35,25 +34,20 @@ export const LoginForm = ({ setStep }: AddStep) => {
     }
   };
 
-  const handleChangePhoneNumber = (e: AddInputEvent) => {
-    setPhoneNumber(e.target.value);
-  };
-
   if (Cookies.get("accessTokenCookie")) {
     router.push("/dashboard");
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-y-3 text-xl pt-5">
         <label htmlFor="phonenumber">phone number</label>
         <input
           className="rounded-md border-2 px-3 h-10 w-80"
           type="text"
           id="phonenumber"
-          value={phoneNumber}
+          {...register("phoneNumber", { required: true })}
           placeholder="enter phonenumber"
-          onChange={handleChangePhoneNumber}
         />
       </div>
       <div>
@@ -66,7 +60,7 @@ export const LoginForm = ({ setStep }: AddStep) => {
         </button>
         {isLoading && (
           <span className="block">
-            The code has been sent to {phoneNumber} phoneNumber ..
+            The code has been sent to phoneNumber ..
           </span>
         )}
       </div>
