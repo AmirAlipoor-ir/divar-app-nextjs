@@ -2,6 +2,8 @@
 
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import Cookies from "js-cookie";
 
 import { useGetCategoryQuery } from "@/services/category";
@@ -9,7 +11,6 @@ import { useGetCategoryQuery } from "@/services/category";
 import { useAddPosterMutation } from "@/services/poster";
 
 import { MyPost } from "@/components/MyPost";
-import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
   const router = useRouter();
