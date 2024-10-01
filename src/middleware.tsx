@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const accessToken = req.cookies.get("accessTokenCookie");
+  const accessToken = req.cookies.get("accessToken");
 
   const isRootProfile = req.nextUrl.pathname === "/dashboard";
 

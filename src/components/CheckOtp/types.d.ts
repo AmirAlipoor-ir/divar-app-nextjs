@@ -1,11 +1,11 @@
-export type CheckOtpRes = {
+export interface CheckOtpRes {
   accessToken: string;
   message: string;
   refreshToken: string;
-  refreshTokenCookie: string
-};
+  refreshToken: string;
+}
 
-export type OtpRes = {
+export interface OtpRes {
   phoneNumber: string;
   otpCode: string;
-};
+}

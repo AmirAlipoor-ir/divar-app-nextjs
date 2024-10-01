@@ -9,8 +9,8 @@ import { useChekRefreshTokenMutation } from "@/services/login";
 import { getExpireAccessDate } from "@/utils/cookies";
 
 export const Protected = ({ children }: { children: ReactNode }) => {
-  const refreshToken = Cookies.get("refreshTokenCookie");
-  const accessToken = Cookies.get("accessTokenCookie");
+  const refreshToken = Cookies.get("refreshToken");
+  const accessToken = Cookies.get("accessToken");
 
   const [getNewToken] = useChekRefreshTokenMutation();
 
@@ -23,7 +23,7 @@ export const Protected = ({ children }: { children: ReactNode }) => {
 
         const accessTokenExpireDate = getExpireAccessDate(data.accessToken);
 
-        Cookies.set("accessTokenCookie", data.accessToken, {
+        Cookies.set("accessToken", data.accessToken, {
           expires: new Date(accessTokenExpireDate! * 1000),
         });
       } else if (accessToken) {
@@ -38,7 +38,7 @@ export const Protected = ({ children }: { children: ReactNode }) => {
                 data.data.accessToken
               );
 
-              Cookies.set("accessTokenCookie", data.data.accessToken, {
+              Cookies.set("accessToken", data.data.accessToken, {
                 expires: new Date(newAccessTokenExpireDate! * 1000),
               });
             }

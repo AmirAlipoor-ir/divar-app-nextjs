@@ -1,13 +1,9 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-export type AddStep = {
+export interface AddStep {
   setStep: Dispatch<SetStateAction<number>>;
-};
+}
 
-export type AddFormEvent = FormEvent<HTMLFormElement>;
-
-export type AddInputEvent = ChangeEvent<HTMLInputElement>;
-
-export type PhoneNumberRes = {
+export interface PhoneNumberRes {
   phoneNumber: string;
-};
+}

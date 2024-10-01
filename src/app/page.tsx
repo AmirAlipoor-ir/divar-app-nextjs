@@ -8,9 +8,8 @@ import { useGetCategoryQuery } from "@/services/category";
 import { useGetPosterQuery } from "@/services/poster";
 
 export default function Home() {
-  const { data, isLoading } = useGetPosterQuery();
-
   const category = useGetCategoryQuery();
+  const { data, isLoading } = useGetPosterQuery();
 
   if (isLoading) {
     return (

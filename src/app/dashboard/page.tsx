@@ -52,7 +52,7 @@ export default function DashboardPage() {
     }
   };
 
-  const token = Cookies.get("accessTokenCookie");
+  const token = Cookies.get("accessToken");
   useEffect(() => {
     if (!token) push("/login");
   }, [push, token]);
@@ -64,35 +64,38 @@ export default function DashboardPage() {
           <h1 className="text-3xl mt-3 font-bold">Add Poster</h1>
           <hr className="w-44 border-red-500 border-2 mb-5" />
 
-          <label className="posterLabel">title</label>
+          <label className="text-xl mb-2">title</label>
           <input
             {...register("title", { required: true })}
             type="text"
-            className="posterInput"
+            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
           />
 
-          <label className="posterLabel">information</label>
+          <label className="text-xl mb-2">information</label>
           <textarea
             {...register("content", { required: true })}
-            className="posterInput"
+            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
           />
 
-          <label className="posterLabel">price</label>
+          <label className="text-xl mb-2">price</label>
           <input
             {...register("amount", { required: true })}
             type="number"
-            className="posterInput"
+            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
           />
 
-          <label className="posterLabel">city</label>
+          <label className="text-xl mb-2">city</label>
           <input
             {...register("city", { required: true })}
             type="text"
-            className="posterInput"
+            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
           />
 
-          <label className="posterLabel">Chategory:</label>
-          <select className="posterSelect" {...register("category")}>
+          <label className="text-xl mb-2">Chategory:</label>
+          <select
+            className="bg-gray-50 border rounded-lg focus:ring-red-300 focus:border-red-300 block w-full p-2.5 shadow-md"
+            {...register("category")}
+          >
             {data?.map(({ name }, index) => (
               <option key={index} value={name}>
                 {name}

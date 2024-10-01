@@ -7,24 +7,3 @@ body {
   background: white;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-.posterInput {
-  @apply border
-   rounded-md 
-   block
-   mb-6 py-2 
-   shadow-md
-focus:border-red-300
-  outline-none
-  w-full
-  pl-5
-  focus:border-2;
-}
-
-.posterLabel {
-  @apply text-xl mb-2;
-}
-
-.posterSelect {
-  @apply bg-gray-50 border rounded-lg focus:ring-red-300 focus:border-red-300 block w-full p-2.5 shadow-md;
-}

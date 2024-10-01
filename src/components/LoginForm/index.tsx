@@ -34,7 +34,7 @@ export const LoginForm = ({ setStep }: AddStep) => {
     }
   };
 
-  if (Cookies.get("accessTokenCookie")) {
+  if (Cookies.get("accessToken")) {
     router.push("/dashboard");
   }
 

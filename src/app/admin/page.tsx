@@ -24,7 +24,7 @@ export default function AdminPage() {
 
   const router = useRouter();
 
-  const cookie = Cookies.get("accessTokenCookie");
+  const cookie = Cookies.get("accessToken");
 
   if (data?.role === "ADMIN") router.push("/");
 

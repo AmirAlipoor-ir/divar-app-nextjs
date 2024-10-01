@@ -1,12 +1,12 @@
-export type FormData = {
+export interface FormData {
   name: string;
   icon: string;
-};
+}
 
-export type PosterRes = {
+export interface PosterRes {
   title: string;
   content: string;
   city: string;
   category: string;
   amount: string;
-};
+}
