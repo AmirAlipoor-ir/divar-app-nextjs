@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 
 export const CategoryList = () => {
-  const data = useGetCategoryQuery();
+  const { data } = useGetCategoryQuery();
 
   const [categoryId] = useDeleteCategoryMutation();
 
@@ -20,21 +20,16 @@ export const CategoryList = () => {
     <div className=" w-full">
       <h2 className="mb-1 text-2xl">categorys</h2>
       <hr className="border-2 mb-5" />
-      {data.data?.map((item, index) => (
+      {data?.map(({ name, icon, _id }, index) => (
         <div
           key={index}
           className="border border-1 p-3  rounded-md flex justify-between mb-3"
         >
           <div className="flex items-center gap-x-2">
-            <Image
-              src={`/${item.icon}.svg`}
-              alt="icon"
-              width={25}
-              height={25}
-            />
-            <span>{item.name}</span>
+            <Image src={`/${icon}.svg`} alt="icon" width={25} height={25} />
+            <span>{name}</span>
           </div>
-          <button onClick={() => handleDeleteCategory(item._id)}>
+          <button onClick={() => handleDeleteCategory(_id)}>
             <Image
               src="/delete.svg"
               alt="delete"

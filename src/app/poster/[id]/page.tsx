@@ -8,7 +8,7 @@ export default function ReviewDetailPage({
 }: {
   params: { id: string };
 }) {
-  const router = useRouter();
+  const { push } = useRouter();
 
   const { data } = useGetPosterQuery();
 
@@ -19,7 +19,7 @@ export default function ReviewDetailPage({
   );
 
   const handleGoBack = () => {
-    router.push("/");
+    push("/");
   };
   return (
     <div>
