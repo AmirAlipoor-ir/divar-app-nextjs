@@ -1,6 +1,6 @@
 import { baseApi } from "../basic";
 
-import { AddPoster, PostListPayload } from "./type";
+import { AddPoster, PostDetailPayload, PostListPayload } from "./type";
 
 const loginApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,6 +40,12 @@ const loginApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["poster"],
     }),
+    getDetailPoster: builder.query<PostDetailPayload, string>({
+      query: (id) => ({
+        url: `/post/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 
   overrideExisting: false,
@@ -49,4 +55,5 @@ export const {
   useAddPosterMutation,
   useDeletePosterMutation,
   useGetMyPosterQuery,
+  useGetDetailPosterQuery,
 } = loginApi;

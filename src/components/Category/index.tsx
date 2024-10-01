@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
+
 import {
   useDeleteCategoryMutation,
   useGetCategoryQuery,
 } from "@/services/category";
-
-import Image from "next/image";
 
 export const CategoryList = () => {
   const { data } = useGetCategoryQuery();

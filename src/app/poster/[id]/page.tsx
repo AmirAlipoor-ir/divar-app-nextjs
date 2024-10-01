@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetPosterQuery } from "@/services/poster";
+import { useGetDetailPosterQuery } from "@/services/poster";
 import { useRouter } from "next/navigation";
 
 export default function ReviewDetailPage({
@@ -10,13 +10,9 @@ export default function ReviewDetailPage({
 }) {
   const { push } = useRouter();
 
-  const { data } = useGetPosterQuery();
-
   const posterId = params.id;
 
-  const posterDetail = data?.posts.find(
-    ({ _id }: { _id: string }) => _id === posterId
-  );
+  const { data } = useGetDetailPosterQuery(posterId);
 
   const handleGoBack = () => {
     push("/");
@@ -24,10 +20,9 @@ export default function ReviewDetailPage({
   return (
     <div>
       <div className="border-2 mt-4 rounded-lg text-3xl flex justify-between p-4">
-        <span>title: {posterDetail?.options.title}</span>
-        <span>price: {posterDetail?.amount}</span>
-        {/* <span>price: {posterDetail.options.title}</span> */}
-        <span>city: {posterDetail?.options.city}</span>
+        <span>title: {data?.post.options.title}</span>
+        <span>price: {data?.post.amount}</span>
+        <span>city: {data?.post.options.city}</span>
       </div>
       <div
         onClick={handleGoBack}
