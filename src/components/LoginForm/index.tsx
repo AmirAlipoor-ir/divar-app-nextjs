@@ -6,22 +6,39 @@ import Cookies from "js-cookie";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { z } from "zod";
+
 import toast from "react-hot-toast";
 
 import { useSendOtpMutation } from "@/services/login";
 
 import { AddStep, PhoneNumberRes } from "./types";
 
+const schema = z.object({
+  phoneNumber: z
+    .string()
+    .min(11, { message: "Enter the phone number correctly !!!" }),
+});
+
 export const LoginForm = ({ setStep }: AddStep) => {
-  const { register, handleSubmit, reset } = useForm<PhoneNumberRes>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<PhoneNumberRes>({
+    resolver: zodResolver(schema),
+  });
 
   const [createUser, { isLoading }] = useSendOtpMutation();
 
   const { push } = useRouter();
 
-  const cookie = Cookies.get("accessToken");
+  const token = Cookies.get("accessToken");
 
-  if (cookie) {
+  if (token) {
     push("/dashboard");
   }
 
@@ -51,6 +68,9 @@ export const LoginForm = ({ setStep }: AddStep) => {
           {...register("phoneNumber", { required: true })}
           placeholder="enter phonenumber"
         />
+        {errors.phoneNumber && (
+          <span className="text-red-500">{errors.phoneNumber.message}</span>
+        )}
       </div>
       <div>
         <button
