@@ -8,6 +8,10 @@ import Cookies from "js-cookie";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { z } from "zod";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import toast from "react-hot-toast";
 
 import { useGetCategoryQuery } from "@/services/category";
@@ -17,8 +21,6 @@ import { MyPost } from "@/components/MyPost";
 import { Input } from "@/components/Input";
 
 import { PosterRes } from "../type";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
   title: z.string().min(3, { message: "Enter the title correctly !!!" }),
