@@ -8,10 +8,11 @@ import { useGetCategoryQuery } from "@/services/category";
 import { useGetPosterQuery } from "@/services/poster";
 
 export default function Home() {
-  const category = useGetCategoryQuery();
-  const { data, isLoading } = useGetPosterQuery();
+  const { data: category, isLoading: catrgoryIsLoading } =
+    useGetCategoryQuery();
+  const { data: posterData, isLoading: posterIsLoading } = useGetPosterQuery();
 
-  if (isLoading && category.isLoading) {
+  if (posterIsLoading && catrgoryIsLoading) {
     return (
       <div className="flex justify-center items-center text-2xl">
         Loading........... Please do not leave the page
@@ -24,7 +25,7 @@ export default function Home() {
       <section className="w-1/5">
         <h1 className="font-black text-2xl mb-5">Categories List</h1>
         <div>
-          {category.data?.map(({ name, icon }, index) => (
+          {category?.map(({ name, icon }, index) => (
             <div
               className="flex mb-3 gap-x-2 border-2 rounded-lg p-1"
               key={index}
@@ -36,7 +37,7 @@ export default function Home() {
         </div>
       </section>
       <div className="flex flex-wrap gap-9 justify-center w-4/5 ">
-        {data?.posts.map((item, index) => (
+        {posterData?.posts.map((item, index) => (
           <Link key={index} href={`/poster/${item._id}`}>
             <div className="border-2 rounded-md flex p-3 w-36 overflow-hidden">
               <div className="flex flex-col justify-between">
