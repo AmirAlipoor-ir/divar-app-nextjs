@@ -18,7 +18,7 @@ export const Navbar = () => {
         >
           add poster
         </Link>
-        {data?.role == "USER" && <Link href="admin">Admin</Link>}
+        {data?.role == "ADMIN" && <Link href="admin">Admin</Link>}
         <Link href="/">
           <Image src="/divar.svg" alt="divar" width={50} height={50} />
         </Link>
