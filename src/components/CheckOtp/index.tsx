@@ -74,8 +74,10 @@ export const CheckOtp = () => {
           id="otpCode"
           {...register("otpCode", { required: true })}
         />
-
-        {errors.otpCode && <span>{errors.otpCode.message}</span>}
+  
+        {errors.otpCode && (
+          <span className="text-red-500">{errors.otpCode.message}</span>
+        )}
 
         <div>
           <button

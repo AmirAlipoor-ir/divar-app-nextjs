@@ -10,3 +10,5 @@ export interface PosterRes {
   category: string;
   amount: string;
 }
+
+export type paramsId = { id: string };

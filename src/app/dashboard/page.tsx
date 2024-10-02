@@ -11,10 +11,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { useGetCategoryQuery } from "@/services/category";
-
 import { useAddPosterMutation } from "@/services/poster";
 
 import { MyPost } from "@/components/MyPost";
+import { Input } from "@/components/Input";
 
 import { PosterRes } from "../type";
 
@@ -65,11 +65,7 @@ export default function DashboardPage() {
           <hr className="w-44 border-red-500 border-2 mb-5" />
 
           <label className="text-xl mb-2">title</label>
-          <input
-            {...register("title", { required: true })}
-            type="text"
-            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
-          />
+          <Input register={register} type="text" name="title" />
 
           <label className="text-xl mb-2">information</label>
           <textarea
@@ -78,18 +74,10 @@ export default function DashboardPage() {
           />
 
           <label className="text-xl mb-2">price</label>
-          <input
-            {...register("amount", { required: true })}
-            type="number"
-            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
-          />
+          <Input register={register} type="number" name="amount" />
 
           <label className="text-xl mb-2">city</label>
-          <input
-            {...register("city", { required: true })}
-            type="text"
-            className="border rounded-md block mb-6 py-2 shadow-md focus:border-red-300 outline-none w-full pl-5 focus:border-2"
-          />
+          <Input name="city" type="text" register={register} />
 
           <label className="text-xl mb-2">Chategory:</label>
           <select
