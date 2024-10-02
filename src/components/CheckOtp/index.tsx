@@ -6,15 +6,17 @@ import toast from "react-hot-toast";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { OtpRes } from "./types";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { z } from "zod";
+
 import Cookies from "js-cookie";
 
 import { setCookies } from "@/utils/cookies";
 
 import { useCheckOtpMutation } from "@/services/login";
-
-import { OtpRes } from "./types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
 const schema = z.object({
   otpCode: z
@@ -74,7 +76,7 @@ export const CheckOtp = () => {
           id="otpCode"
           {...register("otpCode", { required: true })}
         />
-  
+
         {errors.otpCode && (
           <span className="text-red-500">{errors.otpCode.message}</span>
         )}

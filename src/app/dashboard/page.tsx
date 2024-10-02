@@ -17,9 +17,28 @@ import { MyPost } from "@/components/MyPost";
 import { Input } from "@/components/Input";
 
 import { PosterRes } from "../type";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  title: z.string().min(3, { message: "Enter the title correctly !!!" }),
+
+  amount: z.string().min(1, { message: "you have to enter the price !!!" }),
+
+  city: z
+    .string()
+    .min(3, { message: "you have to enter city name correctly !!!" }),
+});
 
 export default function DashboardPage() {
-  const { register, handleSubmit, reset } = useForm<PosterRes>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<PosterRes>({
+    resolver: zodResolver(schema),
+  });
 
   const [createPoster] = useAddPosterMutation();
 
@@ -66,7 +85,9 @@ export default function DashboardPage() {
 
           <label className="text-xl mb-2">title</label>
           <Input register={register} type="text" name="title" />
-
+          {errors.title && (
+            <span className="text-red-500">{errors.title.message}</span>
+          )}
           <label className="text-xl mb-2">information</label>
           <textarea
             {...register("content", { required: true })}
@@ -75,10 +96,14 @@ export default function DashboardPage() {
 
           <label className="text-xl mb-2">price</label>
           <Input register={register} type="number" name="amount" />
-
+          {errors.amount && (
+            <span className="text-red-500">{errors.amount.message}</span>
+          )}
           <label className="text-xl mb-2">city</label>
           <Input name="city" type="text" register={register} />
-
+          {errors.city && (
+            <span className="text-red-500">{errors.city.message}</span>
+          )}
           <label className="text-xl mb-2">Chategory:</label>
           <select
             className="bg-gray-50 border rounded-lg focus:ring-red-300 focus:border-red-300 block w-full p-2.5 shadow-md"
