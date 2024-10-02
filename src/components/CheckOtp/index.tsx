@@ -6,18 +6,41 @@ import toast from "react-hot-toast";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import Cookies from "js-cookie";
+
 import { setCookies } from "@/utils/cookies";
 
 import { useCheckOtpMutation } from "@/services/login";
 
 import { OtpRes } from "./types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z.object({
+  otpCode: z
+    .string()
+    .min(5, { message: "Enter the code correctly !!!" })
+    .max(5, { message: "Enter the code correctly !!!" }),
+});
 
 export const CheckOtp = () => {
-  const { register, handleSubmit } = useForm<OtpRes>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<OtpRes>({
+    resolver: zodResolver(schema),
+  });
 
   const [sendOtp, { isLoading }] = useCheckOtpMutation();
 
-  const router = useRouter();
+  const { push } = useRouter();
+
+  const cookie = Cookies.get("accessToken");
+
+  if (cookie) {
+    push("/dashboard");
+  }
 
   const onSubmit: SubmitHandler<OtpRes> = async (e) => {
     try {
@@ -25,8 +48,8 @@ export const CheckOtp = () => {
         phoneNumber: sessionStorage.getItem("phoneNumber")!,
         otpCode: e.otpCode,
       }).unwrap();
+      push("/dashboard");
       setCookies({ data });
-      router.push("/dashboard");
       toast.success("you login successfully");
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -43,14 +66,17 @@ export const CheckOtp = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y-3 text-xl pt-5"
       >
-        <label htmlFor="phoneNumber">Enter the code</label>
+        <label htmlFor="otpCode">Enter the code</label>
         <input
           type="text"
           placeholder="Enter code"
           className="rounded-md border-2 px-3 h-10 w-80"
-          id="phonenumber"
+          id="otpCode"
           {...register("otpCode", { required: true })}
         />
+
+        {errors.otpCode && <span>{errors.otpCode.message}</span>}
+
         <div>
           <button
             type="submit"
