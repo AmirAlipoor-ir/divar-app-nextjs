@@ -18,17 +18,16 @@ import { FormData } from "../type";
 export default function AdminPage() {
   const { register, handleSubmit, reset } = useForm<FormData>();
 
+  const { data } = useWhoamiQuery();
   const [createCategory] = useAddCategoryMutation();
 
-  const { data } = useWhoamiQuery();
-
-  const router = useRouter();
+  const { push } = useRouter();
 
   const cookie = Cookies.get("accessToken");
 
-  if (data?.role === "ADMIN") router.push("/");
+  if (data?.role === "USER") push("/");
 
-  if (!cookie) router.push("/");
+  if (!cookie) push("/");
 
   const onSubmit: SubmitHandler<FormData> = async ({ name, icon }) => {
     try {
