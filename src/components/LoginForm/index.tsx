@@ -17,7 +17,13 @@ export const LoginForm = ({ setStep }: AddStep) => {
 
   const [createUser, { isLoading }] = useSendOtpMutation();
 
-  const router = useRouter();
+  const { push } = useRouter();
+
+  const cookie = Cookies.get("accessToken");
+
+  if (cookie) {
+    push("/dashboard");
+  }
 
   const onSubmit: SubmitHandler<PhoneNumberRes> = async (data) => {
     try {
@@ -33,10 +39,6 @@ export const LoginForm = ({ setStep }: AddStep) => {
       }
     }
   };
-
-  if (Cookies.get("accessToken")) {
-    router.push("/dashboard");
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
