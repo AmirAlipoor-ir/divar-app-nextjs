@@ -11,7 +11,7 @@ export default function Home() {
   const category = useGetCategoryQuery();
   const { data, isLoading } = useGetPosterQuery();
 
-  if (isLoading) {
+  if (isLoading && category.isLoading) {
     return (
       <div className="flex justify-center items-center text-2xl">
         Loading........... Please do not leave the page
